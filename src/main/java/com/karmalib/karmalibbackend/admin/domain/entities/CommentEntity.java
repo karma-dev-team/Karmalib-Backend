@@ -1,4 +1,4 @@
-package com.karmalib.karmalibbackend.forum.domain.entities;
+package com.karmalib.karmalibbackend.admin.domain.entities;
 
 import com.karmalib.karmalibbackend.common.domain.BaseEntity;
 import jakarta.persistence.Column;
