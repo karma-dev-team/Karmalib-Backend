@@ -1,5 +1,9 @@
 package com.karmalib.karmalibbackend.user.domain.entities;
 
+import com.karmalib.karmalibbackend.admin.domain.entities.PostEntity;
+import com.karmalib.karmalibbackend.common.domain.BaseEntity;
+import com.karmalib.karmalibbackend.file.domain.entities.FileEntity;
+import com.karmalib.karmalibbackend.library.domain.entities.BookmarkEntity;
 import jakarta.persistence.*;
 import java.util.List;
 import java.time.LocalDateTime;
@@ -19,13 +23,13 @@ public class UserEntity extends BaseEntity {
 
     @OneToOne
     @JoinColumn(name = "avatar_id")
-    public File avatar;
+    public FileEntity avatar;
 
     @OneToMany(mappedBy = "user")
-    public List<Bookmark> bookmarks;
+    public List<BookmarkEntity> bookmarks;
 
     @OneToMany(mappedBy = "user")
-    public List<Post> posts;
+    public List<PostEntity> posts;
 
     @ManyToMany
     @JoinTable(
@@ -33,5 +37,5 @@ public class UserEntity extends BaseEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "group_id")
     )
-    public List<Group> groups;
+    public List<GroupEntity> groups;
 }
