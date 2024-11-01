@@ -1,14 +1,9 @@
 package com.karmalib.karmalibbackend.forum.domain.entities;
 
 import com.karmalib.karmalibbackend.common.domain.BaseEntity;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-import java.util.UUID;
-
-@Entity
+@Entity @Table(name = "comments")
 public class CommentEntity extends BaseEntity {
-    @Id
-    public UUID Id;
 }
