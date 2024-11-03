@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "authors")
-// record of original author of manga
 public class AuthorEntity extends BaseEntity {
 
 }

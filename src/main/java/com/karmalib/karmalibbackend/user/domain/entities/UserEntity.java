@@ -1,8 +1,8 @@
 package com.karmalib.karmalibbackend.user.domain.entities;
 
-import com.karmalib.karmalibbackend.admin.domain.entities.PostEntity;
 import com.karmalib.karmalibbackend.common.domain.BaseEntity;
 import com.karmalib.karmalibbackend.file.domain.entities.FileEntity;
+import com.karmalib.karmalibbackend.forum.domain.entities.PostEntity;
 import com.karmalib.karmalibbackend.library.domain.entities.BookmarkEntity;
 import jakarta.persistence.*;
 import java.util.List;
