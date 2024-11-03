@@ -1,4 +1,4 @@
 package com.karmalib.karmalibbackend.user.api.controllers;
 
-public class PostController {
+public class NotificationController {
 }

@@ -1,4 +1,4 @@
 package com.karmalib.karmalibbackend.user.api.models;
 
-public record CreatePost() {
+public record CreateGroupModel() {
 }
