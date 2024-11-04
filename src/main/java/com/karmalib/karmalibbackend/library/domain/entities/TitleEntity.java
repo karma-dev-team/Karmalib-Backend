@@ -33,7 +33,7 @@ public class TitleEntity extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "publisher_id")
-    public AuthorEntity originalAuthor;
+    public CreatorEntity originalAuthor;
 
     public String pgRating;
     public boolean hentai = false;

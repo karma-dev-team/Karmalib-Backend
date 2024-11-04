@@ -5,6 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "authors")
-public class AuthorEntity extends BaseEntity {
+public class CreatorEntity extends BaseEntity {
 
 }
