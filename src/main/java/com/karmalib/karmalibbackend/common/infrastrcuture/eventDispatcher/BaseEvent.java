@@ -1,17 +1,13 @@
 package com.karmalib.karmalibbackend.common.infrastrcuture.eventDispatcher;
 
+import lombok.*;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Data
 public abstract class BaseEvent
 {
-
-    public LocalDateTime timestamp;
-    public UUID aggregateId;
-
-    public BaseEvent(UUID AggregateId)
-    {
-        aggregateId = AggregateId;
-        timestamp = LocalDateTime.now();
-    }
+    private LocalDateTime timestamp = LocalDateTime.now();;
+    private UUID aggregateId = UUID.randomUUID();
 }
