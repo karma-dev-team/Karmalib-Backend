@@ -9,22 +9,22 @@ public class BaseEntity {
 
     @Id
     @GeneratedValue
-    public UUID Id;
+    public UUID id;
 
     @Column(nullable = false, updatable = false)
-    public LocalDateTime CreatedAt;
+    public LocalDateTime createdAt;
 
     @Column(nullable = false)
-    public LocalDateTime UpdatedAt;
+    public LocalDateTime updatedAt;
 
     @PrePersist
     protected void onCreate() {
-        CreatedAt = LocalDateTime.now();   // Устанавливается текущая дата и время при создании записи
-        UpdatedAt = CreatedAt;             // Устанавливается тоже значение для созданной записи
+        createdAt = LocalDateTime.now();   // Устанавливается текущая дата и время при создании записи
+        updatedAt = createdAt;             // Устанавливается тоже значение для созданной записи
     }
 
     @PreUpdate
     protected void onUpdate() {
-        UpdatedAt = LocalDateTime.now();   // Обновляется дата и время при каждом изменении записи
+        updatedAt = LocalDateTime.now();   // Обновляется дата и время при каждом изменении записи
     }
 }

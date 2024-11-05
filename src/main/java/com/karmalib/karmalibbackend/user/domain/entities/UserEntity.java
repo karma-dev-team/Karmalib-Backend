@@ -10,27 +10,33 @@ import com.karmalib.karmalibbackend.library.domain.entities.BookmarkEntity;
 import com.karmalib.karmalibbackend.library.domain.entities.ChapterTranslationEntity;
 import com.karmalib.karmalibbackend.library.domain.entities.ReviewEntity;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
-@Getter
-@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserEntity extends BaseEntity {
     private String username;
     private String email;
-    private String password;
-    private LocalDateTime registrationDate;
+    private String hashedPassword;
+    @Builder.Default
+    private LocalDateTime registrationDate = LocalDateTime.now();
     private String description;
+    @Builder.Default
     private boolean isStaff = false;
+    @Builder.Default
     private boolean isSuperuser = false;
     private int sex;
+    @Builder.Default
     private boolean isPrivate = false;
+    @Builder.Default
     private boolean needEmail = false;
+    @Builder.Default
     private boolean isNotifyBookmarks = false;
 
     @OneToOne

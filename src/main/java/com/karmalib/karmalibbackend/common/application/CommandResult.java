@@ -28,4 +28,9 @@ public class CommandResult {
     public static CommandResult failure(String message, UUID id) {
         return new CommandResult(false, message, Optional.of(id));
     }
+
+    public static CommandResult empty() {
+        return new CommandResult(false, "", null);
+    }
+
 }
