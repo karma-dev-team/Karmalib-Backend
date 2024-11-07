@@ -8,6 +8,7 @@ import java.util.List;
 
 public class GetGroupsList  implements IQueryHandler<GetGroupsListQuery, List<GroupModel>> {
     @Override
+    @Cacheable(value = "groups")
     public List<GroupModel> handle(GetGroupsListQuery query) {
 
         return null;

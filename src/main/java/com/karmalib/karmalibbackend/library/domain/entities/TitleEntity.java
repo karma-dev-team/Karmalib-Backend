@@ -2,6 +2,7 @@ package com.karmalib.karmalibbackend.library.domain.entities;
 
 import com.karmalib.karmalibbackend.common.domain.BaseEntity;
 import com.karmalib.karmalibbackend.file.domain.entities.FileEntity;
+import com.karmalib.karmalibbackend.user.domain.entities.AuthorEntity;
 import com.karmalib.karmalibbackend.user.domain.entities.UserEntity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -19,7 +20,7 @@ public class TitleEntity extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "translator_id")
-    public UserEntity translator;
+    public AuthorEntity translator;
 
     public LocalDateTime releaseDate;
 

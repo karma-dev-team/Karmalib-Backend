@@ -9,11 +9,15 @@ import com.karmalib.karmalibbackend.forum.domain.entities.TopicEntity;
 import com.karmalib.karmalibbackend.library.domain.entities.BookmarkEntity;
 import com.karmalib.karmalibbackend.library.domain.entities.ChapterTranslationEntity;
 import com.karmalib.karmalibbackend.library.domain.entities.ReviewEntity;
+import com.karmalib.karmalibbackend.user.domain.events.FriendAdded;
+import com.karmalib.karmalibbackend.user.domain.events.FriendRemoved;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -69,4 +73,26 @@ public class UserEntity extends BaseEntity {
 
     @ManyToMany(mappedBy = "users")
     private List<GroupEntity> groups;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_friends",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id")
+    )
+    private Set<UserEntity> friends = new HashSet<>();
+
+    // Метод для добавления друга
+    public void addFriend(UserEntity friend) {
+        this.friends.add(friend);
+        friend.friends.add(this);
+        addDomainEvent(new FriendAdded(friend.id, this.id));
+    }
+
+    // Метод для удаления друга
+    public void removeFriend(UserEntity friend) {
+        this.friends.remove(friend);
+        friend.friends.remove(this);
+        addDomainEvent(new FriendRemoved(friend.id, this.id));
+    }
 }

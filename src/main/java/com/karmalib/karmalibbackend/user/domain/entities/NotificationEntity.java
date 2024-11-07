@@ -4,13 +4,13 @@ import com.karmalib.karmalibbackend.common.domain.BaseEntity;
 import com.karmalib.karmalibbackend.file.domain.entities.FileEntity;
 import com.karmalib.karmalibbackend.library.domain.entities.TitleEntity;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "notifications")
-@Getter
-@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class NotificationEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")

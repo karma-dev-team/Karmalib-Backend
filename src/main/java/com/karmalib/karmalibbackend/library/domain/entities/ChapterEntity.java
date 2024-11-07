@@ -1,6 +1,7 @@
 package com.karmalib.karmalibbackend.library.domain.entities;
 
 import com.karmalib.karmalibbackend.common.domain.BaseEntity;
+import com.karmalib.karmalibbackend.user.domain.entities.AuthorEntity;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -23,4 +24,7 @@ public class ChapterEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "chapter")
     public List<ChapterTranslationEntity> translations;
+
+    @OneToMany(mappedBy = "title")
+    public List<AuthorEntity> authors;
 }

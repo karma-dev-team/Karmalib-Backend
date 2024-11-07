@@ -12,5 +12,5 @@ public class TitleTagEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "title_id", nullable = false) // Внешний ключ title_id
     public TitleEntity title;
-
+    private String name;
 }
