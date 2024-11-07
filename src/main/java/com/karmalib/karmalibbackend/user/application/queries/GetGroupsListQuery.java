@@ -1,4 +1,6 @@
 package com.karmalib.karmalibbackend.user.application.queries;
 
-public class GetGroupsListQuery {
+import com.karmalib.karmalibbackend.common.application.Query;
+
+public class GetGroupsListQuery implements Query {
 }
