@@ -24,7 +24,4 @@ public class ChapterEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "chapter")
     public List<ChapterTranslationEntity> translations;
-
-    @OneToMany(mappedBy = "title")
-    public List<AuthorEntity> authors;
 }

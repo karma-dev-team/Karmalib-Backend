@@ -9,7 +9,6 @@ import jakarta.persistence.*;
 public class ReviewEntity extends BaseEntity {
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
     public UserEntity user;
 
     @ManyToOne

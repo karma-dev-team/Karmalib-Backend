@@ -12,16 +12,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CreateUser implements ICommandHandler<CreateUserCommand> {
-    final UserRepository userRepository;
-    final PasswordHasherService passwordHasherService;
-    final IEventDispatcher eventDispatcher;
-
     @Autowired
-    public CreateUser(UserRepository userRepo, PasswordHasherService passwordHasherService, IEventDispatcher eventDispatcher) {
-        this.userRepository = userRepo;
-        this.eventDispatcher = eventDispatcher;
-        this.passwordHasherService = passwordHasherService;
-    }
+    private UserRepository userRepository;
+    @Autowired
+    private PasswordHasherService passwordHasherService;
+    @Autowired
+    private IEventDispatcher eventDispatcher;
 
     public CommandResult handle(CreateUserCommand command) {
         var oldUser = userRepository.findByEmail(command.getEmail());

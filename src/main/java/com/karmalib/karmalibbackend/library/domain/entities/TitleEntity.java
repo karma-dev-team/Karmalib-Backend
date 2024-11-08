@@ -43,5 +43,8 @@ public class TitleEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "title")
     public List<TitleTagEntity> tags;
+
+    @OneToMany(mappedBy = "title")
+    public List<AuthorEntity> authors;
 }
 

@@ -53,14 +53,12 @@ public class UserEntity extends BaseEntity {
     @OneToMany(mappedBy = "author")
     private List<NewsEntity> news;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany
+    @JoinColumn(name = "user_id")
     private List<BookmarkEntity> bookmarks;
 
     @OneToMany(mappedBy = "user")
     private List<PostEntity> posts;
-
-    @OneToMany(mappedBy = "user")
-    private List<TopicEntity> topics;
 
     @OneToMany(mappedBy = "user")
     private List<ReviewEntity> reviews;
@@ -80,7 +78,7 @@ public class UserEntity extends BaseEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "friend_id")
     )
-    private Set<UserEntity> friends = new HashSet<>();
+    private Set<UserEntity> friends;
 
     // Метод для добавления друга
     public void addFriend(UserEntity friend) {

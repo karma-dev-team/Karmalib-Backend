@@ -2,6 +2,8 @@ package com.karmalib.karmalibbackend.user.domain.entities;
 
 import com.karmalib.karmalibbackend.common.domain.BaseEntity;
 import com.karmalib.karmalibbackend.user.domain.enums.InvitationStatus;
+import com.karmalib.karmalibbackend.user.domain.events.FriendInvitationAccepted;
+import com.karmalib.karmalibbackend.user.domain.events.FriendInvitationDeclined;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,9 +28,11 @@ public class FriendInvitationEntity extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
+    @Builder.Default
     private InvitationStatus status = InvitationStatus.PENDING;
 
     @Column(name = "sent_at", nullable = false)
+    @Builder.Default
     private LocalDateTime sentAt = LocalDateTime.now();
 
     public FriendInvitationEntity(UserEntity sender, UserEntity receiver) {
@@ -42,12 +46,12 @@ public class FriendInvitationEntity extends BaseEntity {
     public void accept() {
         this.status = InvitationStatus.ACCEPTED;
         sender.addFriend(receiver);
-        addDomainEvent(new FriendInvitationAcceptedEvent(sender.getId(), receiver.getId()));
+        addDomainEvent(new FriendInvitationAccepted(sender.id, receiver.id));
     }
 
     // Метод для отклонения приглашения
     public void decline() {
         this.status = InvitationStatus.DECLINED;
-        addDomainEvent(new FriendInvitationDeclinedEvent(sender.getId(), receiver.getId()));
+        addDomainEvent(new FriendInvitationDeclined(sender.id, receiver.id));
     }
 }

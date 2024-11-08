@@ -9,5 +9,4 @@ import java.util.UUID;
 public class GetGroupsListQuery implements Query {
     private UUID userId;
     private boolean banned;
-
 }
