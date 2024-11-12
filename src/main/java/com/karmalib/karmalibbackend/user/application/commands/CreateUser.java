@@ -6,7 +6,7 @@ import com.karmalib.karmalibbackend.common.infrastrcuture.eventDispatcher.IEvent
 import com.karmalib.karmalibbackend.user.application.services.PasswordHasherService;
 import com.karmalib.karmalibbackend.user.domain.entities.UserEntity;
 import com.karmalib.karmalibbackend.user.domain.events.UserCreated;
-import com.karmalib.karmalibbackend.user.repositories.UserRepository;
+import com.karmalib.karmalibbackend.user.infrastructure.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

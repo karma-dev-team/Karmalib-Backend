@@ -1,4 +1,4 @@
-package com.karmalib.karmalibbackend.user.repositories;
+package com.karmalib.karmalibbackend.user.infrastructure.repositories;
 
 import com.karmalib.karmalibbackend.user.domain.entities.NotificationEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

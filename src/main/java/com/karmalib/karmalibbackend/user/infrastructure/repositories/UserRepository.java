@@ -1,4 +1,4 @@
-package com.karmalib.karmalibbackend.user.repositories;
+package com.karmalib.karmalibbackend.user.infrastructure.repositories;
 
 import com.karmalib.karmalibbackend.user.domain.entities.UserEntity;
 import org.springframework.cache.annotation.Cacheable;
