@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @MappedSuperclass
@@ -45,5 +46,19 @@ public class BaseEntity {
 
     public void clearDomainEvents() {
         domainEvents.clear();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BaseEntity that = (BaseEntity) o;
+        return id != null && id.equals(that.id);
+    }
+
+    // Custom hashCode method based on the entity ID
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

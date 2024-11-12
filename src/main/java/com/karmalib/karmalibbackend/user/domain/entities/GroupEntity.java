@@ -14,6 +14,8 @@ import java.util.List;
 public class GroupEntity extends BaseEntity {
     private String name;
     private String description;
+    @OneToMany
+    private List<GroupInvitationEntity> invitations;
 
     @OneToMany
     private List<GroupContactEntity> contacts;

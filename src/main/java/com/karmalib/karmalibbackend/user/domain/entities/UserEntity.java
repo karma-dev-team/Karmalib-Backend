@@ -9,6 +9,7 @@ import com.karmalib.karmalibbackend.forum.domain.entities.TopicEntity;
 import com.karmalib.karmalibbackend.library.domain.entities.BookmarkEntity;
 import com.karmalib.karmalibbackend.library.domain.entities.ChapterTranslationEntity;
 import com.karmalib.karmalibbackend.library.domain.entities.ReviewEntity;
+import com.karmalib.karmalibbackend.user.domain.enums.UserRole;
 import com.karmalib.karmalibbackend.user.domain.events.FriendAdded;
 import com.karmalib.karmalibbackend.user.domain.events.FriendRemoved;
 import jakarta.persistence.*;
@@ -19,8 +20,10 @@ import java.util.List;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "users")
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -43,6 +46,11 @@ public class UserEntity extends BaseEntity {
     @Builder.Default
     private boolean isNotifyBookmarks = false;
 
+    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING) // Store enum as a string in the database
+    private Set<UserRole> roles;
+
     @OneToOne
     @JoinColumn(name = "avatar_id")
     private FileEntity avatar;
@@ -53,8 +61,7 @@ public class UserEntity extends BaseEntity {
     @OneToMany(mappedBy = "author")
     private List<NewsEntity> news;
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
+    @OneToMany(mappedBy = "user")
     private List<BookmarkEntity> bookmarks;
 
     @OneToMany(mappedBy = "user")
@@ -65,6 +72,9 @@ public class UserEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "user")
     private List<CommentEntity> comments;
+
+    @OneToMany(mappedBy = "user")
+    private List<GroupInvitationEntity> invitations;
 
     @OneToMany(mappedBy = "author")
     private List<ChapterTranslationEntity> chapterTranslations;

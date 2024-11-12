@@ -11,5 +11,6 @@ import jakarta.persistence.Table;
 @Table(name = "posts")
 public class BookmarkEntity extends BaseEntity {
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 }
