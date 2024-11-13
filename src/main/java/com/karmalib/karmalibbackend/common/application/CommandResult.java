@@ -11,22 +11,27 @@ import java.util.UUID;
 public class CommandResult {
     private Boolean isSuccess;
     private String message;
-    private Optional<UUID> id;
+    private String id;
 
     public static CommandResult success(UUID id) {
-        return new CommandResult(true, "", Optional.of(id));
+        return new CommandResult(true, "", id.toString());
     }
 
     public static CommandResult success() {
-        return new CommandResult(true, "", Optional.empty());
+        return new CommandResult(true, "", null);
     }
 
     public static CommandResult failure(String message) {
         return new CommandResult(false, message, null);
     }
 
+
     public static CommandResult failure(String message, UUID id) {
-        return new CommandResult(false, message, Optional.of(id));
+        return new CommandResult(false, message, id.toString());
+    }
+
+    public static CommandResult failure(String message, String ident) {
+        return new CommandResult(false, message, ident);
     }
 
     public static CommandResult empty() {

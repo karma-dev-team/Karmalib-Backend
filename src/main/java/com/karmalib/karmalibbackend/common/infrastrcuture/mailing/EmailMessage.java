@@ -10,12 +10,12 @@ import java.util.List;
 @Builder
 public class EmailMessage {
     private String recipient;
-    private String sender;
+    @Builder.Default
+    private String sender = null;
     private String subject;
     private String body;
     private boolean isHtml;  // New field for HTML content
     private List<Attachment> attachments;  // New list of attachments
-
 
     public void addAttachment(String filename, byte[] content) {
         attachments.add(new Attachment(filename, content));
@@ -23,8 +23,8 @@ public class EmailMessage {
 
     // Nested class for attachment details
     public static class Attachment {
-        private String filename;
-        private byte[] content;
+        private final String filename;
+        private final byte[] content;
 
         public Attachment(String filename, byte[] content) {
             this.filename = filename;

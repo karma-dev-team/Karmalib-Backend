@@ -2,12 +2,15 @@ package com.karmalib.karmalibbackend.user.application.commands;
 
 import com.karmalib.karmalibbackend.common.application.CommandResult;
 import com.karmalib.karmalibbackend.common.application.ICommandHandler;
+import com.karmalib.karmalibbackend.common.infrastrcuture.mailing.EmailMessage;
 import com.karmalib.karmalibbackend.common.infrastrcuture.mailing.IMailingQueue;
 import com.karmalib.karmalibbackend.user.application.services.PasswordHasherService;
 import com.karmalib.karmalibbackend.user.domain.entities.UserEntity;
 import com.karmalib.karmalibbackend.user.infrastructure.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 public class UpdateUser  implements ICommandHandler<UpdateUserCommand> {
@@ -30,7 +33,14 @@ public class UpdateUser  implements ICommandHandler<UpdateUserCommand> {
             String hashedPassword = passwordHasherService.hashPassword(command.getPassword());
             user.setHashedPassword(hashedPassword);
 
-            mailingQueue.sendToQueue();
+            EmailMessage message = EmailMessage
+                    .builder()
+                    .body("Your password has been changed, time:" + LocalDateTime.now())
+                    .recipient(user.getEmail())
+                    .subject("Password change in your karmalib account")
+                    .build();
+
+            mailingQueue.sendToQueue(message);
         }
         if (command.getUsername() != null) {
             user.setUsername(command.getUsername());

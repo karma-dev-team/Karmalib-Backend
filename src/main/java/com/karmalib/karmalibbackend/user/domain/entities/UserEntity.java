@@ -45,6 +45,8 @@ public class UserEntity extends BaseEntity {
     private boolean needEmail = false;
     @Builder.Default
     private boolean isNotifyBookmarks = false;
+    @Builder.Default
+    private boolean isBanned = false;
 
     @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))

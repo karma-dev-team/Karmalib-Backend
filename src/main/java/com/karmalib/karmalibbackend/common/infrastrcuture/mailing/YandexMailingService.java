@@ -15,6 +15,8 @@ import java.util.Properties;
 
 @Service
 public class YandexMailingService implements IMailingService {
+    @Value("${yandex.mail.email}")
+    private String senderEmail;
 
     @Value("${yandex.mail.username}")
     private String username;
@@ -46,7 +48,11 @@ public class YandexMailingService implements IMailingService {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
+            if (emailMessage.getSender().isEmpty() || emailMessage.getSender().isBlank()) {
+                helper.setFrom(senderEmail);
+            } else {
             helper.setFrom(emailMessage.getSender());
+            }
             helper.setTo(emailMessage.getRecipient());
             helper.setSubject(emailMessage.getSubject());
 
