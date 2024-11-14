@@ -1,21 +1,26 @@
 package com.karmalib.karmalibbackend.common.infrastrcuture.mailing;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Builder
 public class EmailMessage {
+    @NotEmpty
     private String recipient;
     @Builder.Default
     private String sender = null;
+    @NotEmpty
     private String subject;
     private String body;
-    private boolean isHtml;  // New field for HTML content
-    private List<Attachment> attachments;  // New list of attachments
+    @Builder.Default
+    private boolean isHtml = false;  // New field for HTML content
+    @Builder.Default
+    private List<Attachment> attachments = null;  // New list of attachments
 
     public void addAttachment(String filename, byte[] content) {
         attachments.add(new Attachment(filename, content));
