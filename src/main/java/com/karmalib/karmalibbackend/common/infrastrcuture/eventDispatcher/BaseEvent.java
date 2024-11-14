@@ -1,5 +1,4 @@
 package com.karmalib.karmalibbackend.common.infrastrcuture.eventDispatcher;
-
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 import java.io.Serializable;
@@ -10,18 +9,16 @@ import java.util.UUID;
 public abstract class BaseEvent extends ApplicationEvent implements Serializable {
     private final UUID aggregateId;
 
-    // Default constructor, setting current time and random UUID if no values are provided
-    public BaseEvent(Object source) {
-        this(source, UUID.randomUUID(), LocalDateTime.now());
+    // Default constructor to satisfy Lombok in subclasses
+    protected BaseEvent() {
+        super("default-source"); // Set a default source for ApplicationEvent
+        this.aggregateId = UUID.randomUUID();
     }
 
+    // Constructor allowing specific aggregateId and timestamp
     public BaseEvent(Object source, UUID aggregateId, LocalDateTime timestamp) {
         super(source);
         this.aggregateId = aggregateId != null ? aggregateId : UUID.randomUUID();
-    }
-
-    public UUID getAggregateId() {
-        return aggregateId;
     }
 
     @Override

@@ -18,8 +18,6 @@ public class UpdateEmail implements ICommandHandler<UpdateEmailCommand> {
     private UserRepository userRepository;
     @Autowired
     private AccessPolicy accessPolicy;
-    @Autowired
-    private IMailingQueue mailingQueue;
 
     public CommandResult handle(UpdateEmailCommand command) {
         if (!accessPolicy.isUserSelf(command.getUserId())) {

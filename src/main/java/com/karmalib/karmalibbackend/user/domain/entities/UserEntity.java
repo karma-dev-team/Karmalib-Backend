@@ -20,7 +20,6 @@ import java.util.List;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "users")
 @Data

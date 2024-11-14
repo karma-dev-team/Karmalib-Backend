@@ -29,7 +29,7 @@ public class FriendInvitationEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     @Builder.Default
-    private InvitationStatus status = InvitationStatus.PENDING;
+    private InvitationStatus status = InvitationStatus.Pending;
 
     @Column(name = "sent_at", nullable = false)
     @Builder.Default
@@ -38,13 +38,13 @@ public class FriendInvitationEntity extends BaseEntity {
     public FriendInvitationEntity(UserEntity sender, UserEntity receiver) {
         this.sender = sender;
         this.receiver = receiver;
-        this.status = InvitationStatus.PENDING;
+        this.status = InvitationStatus.Pending;
         this.sentAt = LocalDateTime.now();
     }
 
     // Метод для принятия приглашения
     public void accept() {
-        this.status = InvitationStatus.ACCEPTED;
+        this.status = InvitationStatus.Accepted;
         sender.addFriend(receiver);
         addDomainEvent(new FriendInvitationAccepted(sender.id, receiver.id));
     }
