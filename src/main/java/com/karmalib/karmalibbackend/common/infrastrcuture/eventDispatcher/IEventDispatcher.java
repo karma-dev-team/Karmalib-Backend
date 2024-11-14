@@ -1,6 +1,8 @@
 package com.karmalib.karmalibbackend.common.infrastrcuture.eventDispatcher;
 
+import java.util.List;
+
 public interface IEventDispatcher {
-    void dispatch(BaseEvent event);
-    void registerSubscriber(Class<? extends BaseEvent> eventType, IEventSubscriber<? extends BaseEvent> subscriber);
+    void dispatch(BaseEvent... events);
+    void dispatch(List<BaseEvent> events);
 }

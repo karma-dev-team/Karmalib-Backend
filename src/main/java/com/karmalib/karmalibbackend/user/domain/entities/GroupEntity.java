@@ -3,6 +3,7 @@ package com.karmalib.karmalibbackend.user.domain.entities;
 import com.karmalib.karmalibbackend.common.domain.BaseEntity;
 import com.karmalib.karmalibbackend.user.application.exceptions.IncorrectInvitationException;
 import com.karmalib.karmalibbackend.user.domain.enums.InvitationStatus;
+import com.karmalib.karmalibbackend.user.domain.events.GroupOwnershipHandOver;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -51,5 +52,14 @@ public class GroupEntity extends BaseEntity {
             invitation.accept();
         }
         users.add(user);
+    }
+
+
+    public void changeOwnership(UserEntity newOwner) {
+        this.owner = newOwner;
+
+        // Создаем событие о передаче владения и добавляем его к доменным событиям
+        GroupOwnershipHandOver event = new GroupOwnershipHandOver(this.id, newOwner.id);
+        this.addDomainEvent(event);
     }
 }
