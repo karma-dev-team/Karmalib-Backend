@@ -1,31 +1,38 @@
 package com.karmalib.karmalibbackend.user.domain.entities;
 
 import com.karmalib.karmalibbackend.common.domain.BaseEntity;
-import com.karmalib.karmalibbackend.file.domain.entities.FileEntity;
+import com.karmalib.karmalibbackend.forum.domain.entities.CommentEntity;
 import com.karmalib.karmalibbackend.library.domain.entities.TitleEntity;
+import com.karmalib.karmalibbackend.user.domain.enums.NotificationType;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
 @Table(name = "notifications")
 @Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class NotificationEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserEntity user;
+    private UserEntity recipient;
 
-    private String message;
-    private String category;
+    private String content;
+    private String title;
+    private NotificationType type;
 
     @ManyToOne
     @JoinColumn(name = "title_id")
-    private TitleEntity title;
+    private TitleEntity titleEntity;
 
     @ManyToOne
-    @JoinColumn(name = "image_id")
-    private FileEntity image;
+    @JoinColumn(name = "notification_id")
+    private CommentEntity comment;
+
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private GroupEntity group;
 
     private boolean read;
 }
