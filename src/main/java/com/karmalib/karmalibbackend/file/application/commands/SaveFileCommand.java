@@ -1,8 +1,8 @@
 package com.karmalib.karmalibbackend.file.application.commands;
 
-import com.karmalib.karmalibbackend.common.application.ICommand;
+import com.karmalib.karmalibbackend.common.application.BaseCommand;
 import lombok.Data;
 
 @Data
-public class SaveFileCommand implements ICommand {
+public class SaveFileCommand implements BaseCommand {
 }

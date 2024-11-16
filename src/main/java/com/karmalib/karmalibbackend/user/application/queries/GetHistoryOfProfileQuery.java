@@ -1,4 +1,6 @@
 package com.karmalib.karmalibbackend.user.application.queries;
 
-public class GetHistoryOfProfileQuery {
+import com.karmalib.karmalibbackend.common.application.BaseQuery;
+
+public class GetHistoryOfProfileQuery extends BaseQuery {
 }

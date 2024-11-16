@@ -1,4 +1,6 @@
 package com.karmalib.karmalibbackend.user.application.queries;
 
-public class GetNotificationSettingsQuery {
+import com.karmalib.karmalibbackend.common.application.BaseQuery;
+
+public class GetNotificationSettingsQuery extends BaseQuery {
 }

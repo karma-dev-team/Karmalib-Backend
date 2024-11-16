@@ -6,8 +6,6 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public class SuspendUserCommand extends BaseCommand {
-    private UUID userId;
-    private String reason;
-    private boolean suspend = true;
+public class AddFriendCommand extends BaseCommand {
+    private UUID friendId;
 }

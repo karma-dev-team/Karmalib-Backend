@@ -1,5 +1,5 @@
 package com.karmalib.karmalibbackend.common.application;
 
-public interface IQueryHandler<Q extends Query, R> {
-    public R handle(Q s);
+public interface IQueryHandler<Q extends BaseQuery, R> {
+    R handle(Q s);
 }

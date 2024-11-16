@@ -5,8 +5,8 @@ import com.karmalib.karmalibbackend.common.application.ICommandHandler;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AddFriend implements ICommandHandler<AddFriendCommand> {
-    public CommandResult handle(AddFriendCommand command) {
+public class KickUserFromGroup implements ICommandHandler<KickUserFromGroupCommand> {
+    public CommandResult handle(KickUserFromGroupCommand command) {
         return CommandResult.empty();
     }
 }
