@@ -2,6 +2,10 @@ package com.karmalib.karmalibbackend.common.domain;
 
 import com.karmalib.karmalibbackend.common.infrastrcuture.eventDispatcher.BaseEvent;
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,16 +13,19 @@ import java.util.Objects;
 import java.util.UUID;
 
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
 
     @Id
     @GeneratedValue
     public UUID id;
 
-    @Column(nullable = false, updatable = false)
+    @CreatedDate
+    @Column(name = "created_at", nullable = false, updatable = false)
     public LocalDateTime createdAt;
 
-    @Column(nullable = false)
+    @LastModifiedDate
+    @Column(name = "updated_at", nullable = false)
     public LocalDateTime updatedAt;
 
     @Transient
