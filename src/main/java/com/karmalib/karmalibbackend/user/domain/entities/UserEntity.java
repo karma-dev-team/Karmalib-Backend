@@ -61,28 +61,7 @@ public class UserEntity extends BaseEntity {
     private FileEntity avatar;
 
     @OneToMany(mappedBy = "user")
-    private List<NotificationEntity> notifications;
-
-    @OneToMany(mappedBy = "author")
-    private List<NewsEntity> news;
-
-    @OneToMany(mappedBy = "user")
-    private List<BookmarkEntity> bookmarks;
-
-    @OneToMany(mappedBy = "user")
     private List<PostEntity> posts;
-
-    @OneToMany(mappedBy = "user")
-    private List<ReviewEntity> reviews;
-
-    @OneToMany(mappedBy = "user")
-    private List<CommentEntity> comments;
-
-    @OneToMany(mappedBy = "user")
-    private List<GroupInvitationEntity> invitations;
-
-    @OneToMany(mappedBy = "author")
-    private List<ChapterTranslationEntity> chapterTranslations;
 
     @ManyToMany(mappedBy = "users")
     private List<GroupEntity> groups;

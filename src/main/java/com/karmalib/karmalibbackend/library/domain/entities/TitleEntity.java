@@ -5,46 +5,67 @@ import com.karmalib.karmalibbackend.file.domain.entities.FileEntity;
 import com.karmalib.karmalibbackend.user.domain.entities.AuthorEntity;
 import com.karmalib.karmalibbackend.user.domain.entities.UserEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
+@Data
 @Table(name = "titles")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class TitleEntity extends BaseEntity {
 
-    public String name;
-    public String description;
-    public String status;
-    public String translationStatus;
-    public String alternateNames;
+    private String name;
+    private String description;
+    private String status;
+    private String translationStatus;
+    private String alternateNames;
 
     @ManyToOne
     @JoinColumn(name = "translator_id")
-    public AuthorEntity translator;
+    private AuthorEntity translator;
 
-    public LocalDateTime releaseDate;
+    private LocalDateTime releaseDate;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    public CategoryEntity category;
+    @ManyToMany
+    @JoinTable(
+            name = "title_to_categories",
+            joinColumns = @JoinColumn(name = "title_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private Set<CategoryEntity> category;
 
     @OneToOne
     @JoinColumn(name = "cover_image_id")
-    public FileEntity coverImage;
+    private FileEntity coverImage;
 
-    @ManyToOne
-    @JoinColumn(name = "publisher_id")
-    public CreatorEntity originalAuthor;
+    @ManyToMany
+    @JoinTable(
+            name = "title_to_creator",
+            joinColumns = @JoinColumn(name = "title_id"),
+            inverseJoinColumns = @JoinColumn(name = "creator_id")
+    )
+    private List<CreatorEntity> creators;
 
-    public String pgRating;
-    public boolean hentai = false;
-    public boolean ronabe = false;
-    public String moderationStatus;
+    private String pgRating;
+    private boolean hentai = false;
+    private boolean ronabe = false;
+    private String moderationStatus;
 
-    @OneToMany(mappedBy = "title")
-    public List<TitleTagEntity> tags;
+    @OneToMany
+    @JoinColumn(name = "title_id")
+    private List<TitleTagEntity> tags;
 
-    @OneToMany(mappedBy = "title")
-    public List<AuthorEntity> authors;
+    @OneToMany
+    @JoinColumn(name = "title_id")
+    private List<AuthorEntity> authors;
 }
 

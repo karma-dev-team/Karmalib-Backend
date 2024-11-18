@@ -16,12 +16,7 @@ public class GetFriends implements IQueryHandler<GetFriendsQuery, List<UserModel
 
     public List<UserModel> handle(final GetFriendsQuery query) {
         var users = userRepository.findFriendsByFilters(query.getUserId(), query.getName(), query.getOnline());
-        List<UserModel> result = new ArrayList<>();
 
-        for (var user : users ) {
-            result.add(UserModel.fromEntity(user));
-        }
-
-        return result;
+        return users.stream().map(UserModel::fromEntity).toList();
     }
 }

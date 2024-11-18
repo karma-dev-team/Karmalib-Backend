@@ -30,9 +30,5 @@ public class NotificationEntity extends BaseEntity {
     @JoinColumn(name = "notification_id")
     private CommentEntity comment;
 
-    @ManyToOne
-    @JoinColumn(name = "group_id")
-    private GroupEntity group;
-
     private boolean read;
 }

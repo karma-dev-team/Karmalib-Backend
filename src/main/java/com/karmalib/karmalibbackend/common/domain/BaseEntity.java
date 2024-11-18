@@ -31,17 +31,6 @@ public class BaseEntity {
     @Transient
     private List<BaseEvent> domainEvents = new ArrayList<>();
 
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();   // Устанавливается текущая дата и время при создании записи
-        updatedAt = createdAt;             // Устанавливается тоже значение для созданной записи
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();   // Обновляется дата и время при каждом изменении записи
-    }
-
     public void addDomainEvent(BaseEvent event) {
         domainEvents.add(event);
     }

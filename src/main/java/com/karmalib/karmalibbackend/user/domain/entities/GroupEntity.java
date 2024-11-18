@@ -25,6 +25,7 @@ public class GroupEntity extends BaseEntity {
     @OneToMany
     private List<GroupContactEntity> contacts;
 
+    private boolean isBanned = false;
     private boolean isPendingDeletion = false;
     private boolean isDeletionRequestedByAdmin = false;
 
