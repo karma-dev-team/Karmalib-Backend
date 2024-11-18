@@ -3,6 +3,7 @@ package com.karmalib.karmalibbackend.user.domain.entities;
 import com.karmalib.karmalibbackend.common.domain.BaseEntity;
 import com.karmalib.karmalibbackend.user.application.exceptions.IncorrectInvitationException;
 import com.karmalib.karmalibbackend.user.domain.enums.InvitationStatus;
+import com.karmalib.karmalibbackend.user.domain.events.GroupIntegrationAdded;
 import com.karmalib.karmalibbackend.user.domain.events.GroupOwnershipHandOver;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,7 +24,8 @@ public class GroupEntity extends BaseEntity {
     private List<GroupInvitationEntity> invitations;
 
     @OneToMany
-    private List<GroupContactEntity> contacts;
+    @JoinColumn(name = "group_id")
+    private List<GroupIntegrationEntity> integrations;
 
     private boolean isBanned = false;
     private boolean isPendingDeletion = false;
@@ -55,6 +57,13 @@ public class GroupEntity extends BaseEntity {
         users.add(user);
     }
 
+    public void addIntegration(GroupIntegrationEntity integration) {
+        this.integrations.add(integration);
+
+        // Генерируем событие
+        GroupIntegrationAdded event = new GroupIntegrationAdded(this.id, integration.getType(), integration.getLink());
+        this.addDomainEvent(event);
+    }
 
     public void changeOwnership(UserEntity newOwner) {
         this.owner = newOwner;

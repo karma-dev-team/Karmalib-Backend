@@ -20,9 +20,15 @@ public class UserCommandService {
     private UpdateEmail updateEmail;
     @Autowired
     private UpdateUser updateUser;
+    @Autowired
+    private SuspendUser suspendUser;
 
     public CommandResult register(CreateUserCommand command) {
         return createUser.handle(command);
+    }
+
+    public CommandResult suspend(SuspendUserCommand command) {
+        return suspendUser.handle(command);
     }
 
     public CommandResult delete(DeleteAccountCommand command) {

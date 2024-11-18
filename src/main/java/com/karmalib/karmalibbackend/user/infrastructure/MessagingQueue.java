@@ -17,8 +17,6 @@ public class MessagingQueue {
         // Если уведомление адресовано пользователю
         if (notification.getRecipient() != null) {
             sendToUser(notification.getRecipient(), notification);
-        } else if (notification.getGroup() != null) {
-            sendToGroup(notification.getGroup(), notification);
         }
     }
 
@@ -26,11 +24,5 @@ public class MessagingQueue {
         // Отправляем уведомление конкретному пользователю
         String destination = "/topic/notifications/user/" + user.id;
         messagingTemplate.convertAndSend(destination, notification);
-    }
-
-    private void sendToGroup(GroupEntity group, NotificationEntity notification) {
-        for (UserEntity user : group.getUsers()) {
-            sendToUser(user, notification);
-        }
     }
 }
