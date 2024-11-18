@@ -48,6 +48,10 @@ public class GroupCommandService {
         return respondToInvitationHandler.handle(command);
     }
 
+    public CommandResult addIntegration(AddIntegrationCommand command) {
+        return addIntegrationHandler.handle(command);
+    }
+
     // Создание группы
     public CommandResult createGroup(CreateGroupCommand command) {
         return createGroupHandler.handle(command);

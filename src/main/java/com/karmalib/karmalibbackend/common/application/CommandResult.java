@@ -25,7 +25,6 @@ public class CommandResult {
         return new CommandResult(false, message, null);
     }
 
-
     public static CommandResult failure(String message, UUID id) {
         return new CommandResult(false, message, id.toString());
     }
