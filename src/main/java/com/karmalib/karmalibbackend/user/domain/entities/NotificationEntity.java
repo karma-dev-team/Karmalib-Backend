@@ -15,7 +15,7 @@ import lombok.*;
 @AllArgsConstructor
 public class NotificationEntity extends BaseEntity {
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "notification_id")
     private UserEntity recipient;
 
     private String content;
