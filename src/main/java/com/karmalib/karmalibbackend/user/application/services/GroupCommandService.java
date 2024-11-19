@@ -2,7 +2,6 @@ package com.karmalib.karmalibbackend.user.application.services;
 
 import com.karmalib.karmalibbackend.common.application.CommandResult;
 import com.karmalib.karmalibbackend.user.application.commands.*;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service

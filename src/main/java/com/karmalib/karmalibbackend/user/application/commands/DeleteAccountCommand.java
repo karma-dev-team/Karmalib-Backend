@@ -11,5 +11,6 @@ import java.util.UUID;
 public class DeleteAccountCommand extends BaseCommand {
     private UUID userId;
     private String reason;
+    @Builder.Default
     private String token = null;
 }
