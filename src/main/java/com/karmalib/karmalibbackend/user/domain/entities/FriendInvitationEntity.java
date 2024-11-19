@@ -51,7 +51,7 @@ public class FriendInvitationEntity extends BaseEntity {
 
     // Метод для отклонения приглашения
     public void decline() {
-        this.status = InvitationStatus.DECLINED;
+        this.status = InvitationStatus.Declined;
         addDomainEvent(new FriendInvitationDeclined(sender.id, receiver.id));
     }
 }

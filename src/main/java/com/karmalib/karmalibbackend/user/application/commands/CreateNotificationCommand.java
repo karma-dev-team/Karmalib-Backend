@@ -19,4 +19,5 @@ public class CreateNotificationCommand extends BaseCommand {
     private List<SaveFileCommand> attachments = null;
     private UUID titleId = null; // title id used for
     private NotificationType type = NotificationType.General;
+    private String systemToken = null;
 }

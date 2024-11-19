@@ -3,6 +3,7 @@ package com.karmalib.karmalibbackend.common.infrastrcuture;
 import com.karmalib.karmalibbackend.user.domain.entities.UserEntity;
 import com.karmalib.karmalibbackend.user.domain.enums.UserRole;
 import com.karmalib.karmalibbackend.user.infrastructure.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,8 @@ import java.util.UUID;
 public class AccessPolicy {
 
     private final UserRepository userRepository;
+    @Value("${system.token}")
+    private String systemToken; // Читаем системный токен из конфигурации
 
     public AccessPolicy(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -25,8 +28,6 @@ public class AccessPolicy {
                 .orElseThrow(() -> new AccessDeniedException("User is not authorized"));
     }
 
-    // Fetch the current logged-in user as an entity and cache it
-    @Cacheable(value = "userCache", key = "'currentUser'")
     public UserEntity getCurrentUser() {
         String username = getCurrentUsername();
         return getUserFromDatabase(username);
@@ -45,6 +46,19 @@ public class AccessPolicy {
     // Check if the current user is a SuperAdmin; if so, all methods should return true
     public boolean isSuperAdmin() {
         return getCurrentUser().getRoles().contains(UserRole.SuperAdmin);
+    }
+
+    /**
+     * Проверка, является ли запрос системным.
+     *
+     * @param token токен, предоставленный в запросе
+     * @return true, если токен совпадает с системным токеном, иначе false
+     */
+    public boolean isSystemRequest(String token) {
+        if (token == null || token.isEmpty()) {
+            return false; // Неверный или отсутствующий токен
+        }
+        return systemToken.equals(token); // Проверка совпадения токенов
     }
 
     // Check if the current user is accessing their own data

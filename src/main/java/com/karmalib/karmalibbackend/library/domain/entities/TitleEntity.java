@@ -5,10 +5,7 @@ import com.karmalib.karmalibbackend.file.domain.entities.FileEntity;
 import com.karmalib.karmalibbackend.user.domain.entities.AuthorEntity;
 import com.karmalib.karmalibbackend.user.domain.entities.UserEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
@@ -16,7 +13,8 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Data
+@Setter
+@Getter
 @Table(name = "titles")
 @NoArgsConstructor
 @AllArgsConstructor

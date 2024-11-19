@@ -13,7 +13,8 @@ import java.util.List;
 @Entity
 @Table(name = "groups")
 @Builder
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class GroupEntity extends BaseEntity {

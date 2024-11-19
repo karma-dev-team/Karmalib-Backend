@@ -4,5 +4,5 @@ import com.karmalib.karmalibbackend.common.application.BaseCommand;
 import lombok.Data;
 
 @Data
-public class SaveFileCommand implements BaseCommand {
+public class SaveFileCommand extends BaseCommand {
 }
