@@ -23,12 +23,12 @@ public class GroupQueryService {
     }
 
     // Получить информацию о конкретной группе
-    public GroupModel handle(GetGroupQuery query) {
+    public GroupModel getGroup(GetGroupQuery query) {
         return getGroupHandler.handle(query);
     }
 
     // Получить список всех групп
-    public List<GroupModel> handle(GetGroupsListQuery query) {
+    public List<GroupModel> getGroupsList(GetGroupsListQuery query) {
         return getGroupsListHandler.handle(query);
     }
 }

@@ -2,11 +2,16 @@ package com.karmalib.karmalibbackend.user.api.controllers;
 
 import com.karmalib.karmalibbackend.common.application.CommandResult;
 import com.karmalib.karmalibbackend.user.application.commands.*;
+import com.karmalib.karmalibbackend.user.application.queries.GetGroupQuery;
+import com.karmalib.karmalibbackend.user.application.queries.GetGroupsListQuery;
+import com.karmalib.karmalibbackend.user.application.queries.results.GroupModel;
 import com.karmalib.karmalibbackend.user.application.services.GroupCommandService;
+import com.karmalib.karmalibbackend.user.application.services.GroupQueryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -15,9 +20,11 @@ import java.util.UUID;
 public class GroupController {
 
     private final GroupCommandService groupCommandService;
+    private final GroupQueryService groupQueryService;
 
-    public GroupController(GroupCommandService groupCommandService) {
+    public GroupController(GroupCommandService groupCommandService, GroupQueryService groupQueryService) {
         this.groupCommandService = groupCommandService;
+        this.groupQueryService = groupQueryService;
     }
 
     private ResponseEntity<?> buildResponse(CommandResult result) {
@@ -109,6 +116,21 @@ public class GroupController {
         command.setGroupId(groupId);
         CommandResult result = groupCommandService.addIntegration(command);
         return buildResponse(result);
+    }
+
+    // ------- Запросы --------
+    @GetMapping("/{userId}/groups/{groupId}")
+    public ResponseEntity<?> getGroup(@PathVariable UUID userId, @PathVariable UUID groupId) {
+        GetGroupQuery query = GetGroupQuery.builder().groupId(groupId).build();
+        GroupModel group = groupQueryService.getGroup(query);
+        return ResponseEntity.ok(group);
+    }
+
+    @GetMapping("/{userId}/groups")
+    public ResponseEntity<?> getGroupsList(@PathVariable UUID userId) {
+        GetGroupsListQuery query = GetGroupsListQuery.builder().userId(userId).build();
+        List<GroupModel> groups = groupQueryService.getGroupsList(query);
+        return ResponseEntity.ok(groups);
     }
 }
 

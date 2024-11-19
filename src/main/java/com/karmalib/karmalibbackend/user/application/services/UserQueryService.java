@@ -11,9 +11,7 @@ import java.util.List;
 public class UserQueryService {
     private final GetFriends getFriends;
     private final GetConfidentialInfo getConfidentialInfo;
-    private final GetGroup getGroup;
     private final GetUser getUser;
-    private final GetGroupsList getGroupsList;
     private final GetHistoryOfProfile getHistoryOfProfile;
     private final GetNotificationSettings getNotificationSettings;
     private final GetUserNotifications getUserNotifications;
@@ -31,9 +29,7 @@ public class UserQueryService {
     ) {
         this.getFriends = getFriends;
         this.getConfidentialInfo = getConfidentialInfo;
-        this.getGroup = getGroup;
         this.getUser = getUser;
-        this.getGroupsList = getGroupsList;
         this.getHistoryOfProfile = getHistoryOfProfile;
         this.getNotificationSettings = getNotificationSettings;
         this.getUserNotifications = getUserNotifications;
@@ -49,19 +45,9 @@ public class UserQueryService {
         return this.getConfidentialInfo.handle(query);
     }
 
-    // Получить информацию о группе
-    public GroupModel getGroup(GetGroupQuery query) {
-        return this.getGroup.handle(query);
-    }
-
     // Получить информацию о пользователе
     public UserModel getUser(GetUserQuery query) {
         return this.getUser.handle(query);
-    }
-
-    // Получить список групп
-    public List<GroupModel> getGroupsList(GetGroupsListQuery query) {
-        return this.getGroupsList.handle(query);
     }
 
     // Получить историю профиля

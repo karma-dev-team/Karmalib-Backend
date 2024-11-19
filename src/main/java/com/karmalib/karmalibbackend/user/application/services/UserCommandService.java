@@ -22,6 +22,12 @@ public class UserCommandService {
     private UpdateUser updateUser;
     @Autowired
     private SuspendUser suspendUser;
+    @Autowired
+    private ReadNotifications readNotificationsHandler;
+
+    public CommandResult readNotifications(ReadNotificationsCommand command) {
+        return readNotificationsHandler.handle(command);
+    }
 
     public CommandResult register(CreateUserCommand command) {
         return createUser.handle(command);
