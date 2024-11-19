@@ -4,8 +4,11 @@ import com.karmalib.karmalibbackend.common.domain.BaseEntity;
 import com.karmalib.karmalibbackend.forum.domain.entities.CommentEntity;
 import com.karmalib.karmalibbackend.library.domain.entities.TitleEntity;
 import com.karmalib.karmalibbackend.user.domain.enums.NotificationType;
+import com.karmalib.karmalibbackend.user.domain.events.NotificationRead;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "notifications")
@@ -30,5 +33,13 @@ public class NotificationEntity extends BaseEntity {
     @JoinColumn(name = "notification_id")
     private CommentEntity comment;
 
-    private boolean read;
+    @Builder.Default
+    private boolean read = false;
+
+    public UUID getId() { return this.id; }
+
+    public void readNotification() {
+        this.read = true;
+        this.addDomainEvent(new NotificationRead(this.id));
+    }
 }

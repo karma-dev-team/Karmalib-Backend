@@ -22,7 +22,7 @@ public class AccessPolicy {
 
     public UserEntity getUserFromDatabase(String username) {
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new AccessDeniedException("User is not authorized"));
     }
 
     // Fetch the current logged-in user as an entity and cache it

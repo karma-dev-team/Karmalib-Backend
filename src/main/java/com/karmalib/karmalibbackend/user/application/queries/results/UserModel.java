@@ -12,6 +12,7 @@ import java.util.Set;
 @SuperBuilder
 public class UserModel extends BaseModel {
     private String username;
+    private String publicUsername;
     private String email;
     private LocalDateTime registrationDate;
     private String description;
@@ -33,6 +34,7 @@ public class UserModel extends BaseModel {
                 .createdAt(userEntity.createdAt)
                 .updatedAt(userEntity.updatedAt)
                 .username(userEntity.getUsername())
+                .publicUsername(userEntity.getPublicUsername())
                 .email(userEntity.getEmail())
                 .registrationDate(userEntity.getRegistrationDate())
                 .description(userEntity.getDescription())
