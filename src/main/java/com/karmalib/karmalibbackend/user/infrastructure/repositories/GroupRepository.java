@@ -13,9 +13,9 @@ import java.util.UUID;
 @Repository
 public interface GroupRepository extends JpaRepository<GroupEntity, UUID> {
     boolean existsByName(String name);
-    List<GroupEntity> findByPendingDeletionTrue();
+    List<GroupEntity> findByIsPendingDeletionTrue();
     @Query("SELECT g FROM GroupEntity g " +
-            "WHERE (g.owner.id = :userId OR :userId MEMBER OF g.users) " +
+            "WHERE (g.owner.id = :userId) " +
             "AND g.isBanned = :banned")
     List<GroupEntity> findByUserIdAndBanned(@Param("userId") UUID userId, @Param("banned") boolean banned);
 }

@@ -28,8 +28,11 @@ public class GroupEntity extends BaseEntity {
     @JoinColumn(name = "group_id")
     private List<GroupIntegrationEntity> integrations;
 
+    @Builder.Default
     private boolean isBanned = false;
+    @Builder.Default
     private boolean isPendingDeletion = false;
+    @Builder.Default
     private boolean isDeletionRequestedByAdmin = false;
 
     @ManyToMany

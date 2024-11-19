@@ -17,7 +17,7 @@ public class GroupDeletionScheduler {
     @Scheduled(cron = "0 0 2 * * *")
     public void deleteMarkedGroups() {
         // Находим все группы, которые отмечены для удаления
-        List<GroupEntity> groupsToDelete = groupRepository.findByPendingDeletionTrue();
+        List<GroupEntity> groupsToDelete = groupRepository.findByIsPendingDeletionTrue();
 
         groupRepository.deleteAll(groupsToDelete);
 

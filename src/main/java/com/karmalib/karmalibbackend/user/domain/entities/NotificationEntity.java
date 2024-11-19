@@ -18,7 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class NotificationEntity extends BaseEntity {
     @ManyToOne
-    @JoinColumn(name = "notification_id")
+    @JoinColumn(name = "recipient_id")
     private UserEntity recipient;
 
     private String content;
@@ -30,7 +30,7 @@ public class NotificationEntity extends BaseEntity {
     private TitleEntity titleEntity;
 
     @ManyToOne
-    @JoinColumn(name = "notification_id")
+    @JoinColumn(name = "comment_id")
     private CommentEntity comment;
 
     @Builder.Default

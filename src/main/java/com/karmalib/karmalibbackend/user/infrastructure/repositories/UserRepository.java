@@ -17,8 +17,7 @@ public interface UserRepository extends JpaRepository<UserEntity, UUID> {
     Optional<UserEntity> findByEmail(String email);
     @Cacheable(value = "users", key = "#username")
     Optional<UserEntity> findByUsername(String username);
-    @Cacheable(value = "users")
-    List<UserEntity> findAllById(List<UUID> ids);
+
     @Query("""
         SELECT f 
         FROM UserEntity u 

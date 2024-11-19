@@ -22,7 +22,7 @@ public class AddFriend implements ICommandHandler<AddFriendCommand> {
     private AccessPolicy accessPolicy;
 
     @Override
-    public CommandResult handle(AddFriendCommand command) {
+    public CommandResult handle(AddFriendCommand command) {  // TODO: сделать инвайты вместо добавления сразу
         UserEntity user = accessPolicy.getCurrentUser();
         UserEntity friend = userRepository.findById(command.getFriendId()).orElse(null);
 
