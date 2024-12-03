@@ -4,5 +4,5 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 public interface ICommandHandler<T extends BaseCommand> {
-    CommandResult handle(T command) throws IOException, TimeoutException;;
+    CommandResult handle(T command);
 }
