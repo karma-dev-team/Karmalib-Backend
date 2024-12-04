@@ -1,6 +1,7 @@
 package com.karmalib.karmalibbackend.user.api.controllers;
 
 import com.karmalib.karmalibbackend.common.application.CommandResult;
+import com.karmalib.karmalibbackend.common.presentation.CustomResponseEntity;
 import com.karmalib.karmalibbackend.user.application.commands.*;
 import com.karmalib.karmalibbackend.user.application.queries.GetGroupQuery;
 import com.karmalib.karmalibbackend.user.application.queries.GetGroupsListQuery;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 @RestController
 @RequestMapping("/api/groups")
 public class GroupController {
@@ -27,35 +27,36 @@ public class GroupController {
         this.groupQueryService = groupQueryService;
     }
 
-    private ResponseEntity<?> buildResponse(CommandResult result) {
+    private ResponseEntity<CustomResponseEntity> buildResponse(CommandResult result) {
+        CustomResponseEntity response = CustomResponseEntity.of(
+                result.getIsSuccess(),
+                UUID.fromString(result.getId()),
+                result.getMessage()
+        );
         return ResponseEntity.status(result.getIsSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST)
-                .body(Map.of(
-                        "success", result.getIsSuccess(),
-                        "id", result.getId(),
-                        "description", result.getMessage()
-                ));
+                .body(response);
     }
 
     // Создание группы
     @PostMapping
-    public ResponseEntity<?> createGroup(@RequestBody CreateGroupCommand command) {
+    public ResponseEntity<CustomResponseEntity> createGroup(@RequestBody CreateGroupCommand command) {
         CommandResult result = groupCommandService.createGroup(command);
         return buildResponse(result);
     }
 
     // Обновление группы
     @PutMapping("/{groupId}")
-    public ResponseEntity<?> updateGroup(
+    public ResponseEntity<CustomResponseEntity> updateGroup(
             @PathVariable UUID groupId,
             @RequestBody UpdateGroupCommand command) {
-        command.setGroupId(groupId); // Устанавливаем ID группы
+        command.setGroupId(groupId);
         CommandResult result = groupCommandService.updateGroup(command);
         return buildResponse(result);
     }
 
     // Удаление группы
     @DeleteMapping("/{groupId}")
-    public ResponseEntity<?> deleteGroup(@PathVariable UUID groupId) {
+    public ResponseEntity<CustomResponseEntity> deleteGroup(@PathVariable UUID groupId) {
         DeleteGroupCommand command = DeleteGroupCommand.builder().groupId(groupId).build();
         CommandResult result = groupCommandService.deleteGroup(command);
         return buildResponse(result);
@@ -63,7 +64,7 @@ public class GroupController {
 
     // Отмена удаления группы
     @PostMapping("/{groupId}/cancel-deletion")
-    public ResponseEntity<?> cancelGroupDeletion(@PathVariable UUID groupId) {
+    public ResponseEntity<CustomResponseEntity> cancelGroupDeletion(@PathVariable UUID groupId) {
         CancelGroupDeletionCommand command = CancelGroupDeletionCommand.builder().groupId(groupId).build();
         CommandResult result = groupCommandService.cancelGroupDeletion(command);
         return buildResponse(result);
@@ -71,7 +72,7 @@ public class GroupController {
 
     // Передача прав владельца группы
     @PostMapping("/{groupId}/transfer-ownership")
-    public ResponseEntity<?> giveOwnershipOfGroup(
+    public ResponseEntity<CustomResponseEntity> giveOwnershipOfGroup(
             @PathVariable UUID groupId,
             @RequestBody GiveOwnershipOfGroupCommand command) {
         command.setGroupId(groupId);
@@ -81,7 +82,7 @@ public class GroupController {
 
     // Приглашение пользователя в группу
     @PostMapping("/{groupId}/invite")
-    public ResponseEntity<?> inviteUserToGroup(
+    public ResponseEntity<CustomResponseEntity> inviteUserToGroup(
             @PathVariable UUID groupId,
             @RequestBody InviteUserToGroupCommand command) {
         command.setGroupId(groupId);
@@ -91,7 +92,7 @@ public class GroupController {
 
     // Удаление пользователя из группы
     @PostMapping("/{groupId}/kick")
-    public ResponseEntity<?> kickUserFromGroup(
+    public ResponseEntity<CustomResponseEntity> kickUserFromGroup(
             @PathVariable UUID groupId,
             @RequestBody KickUserFromGroupCommand command) {
         command.setGroupId(groupId);
@@ -101,7 +102,7 @@ public class GroupController {
 
     // Ответ на приглашение
     @PostMapping("/{groupId}/respond-invitation")
-    public ResponseEntity<?> respondToInvitation(
+    public ResponseEntity<CustomResponseEntity> respondToInvitation(
             @PathVariable UUID groupId,
             @RequestBody RespondToInvitationCommand command) {
         CommandResult result = groupCommandService.respondToInvitation(command);
@@ -110,7 +111,7 @@ public class GroupController {
 
     // Добавление интеграции
     @PostMapping("/{groupId}/integrations")
-    public ResponseEntity<?> addIntegration(
+    public ResponseEntity<CustomResponseEntity> addIntegration(
             @PathVariable UUID groupId,
             @RequestBody AddIntegrationCommand command) {
         command.setGroupId(groupId);
@@ -133,4 +134,3 @@ public class GroupController {
         return ResponseEntity.ok(groups);
     }
 }
-

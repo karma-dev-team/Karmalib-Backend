@@ -2,6 +2,7 @@ package com.karmalib.karmalibbackend.file.infrastructure.files;
 
 
 import java.io.InputStream;
+import java.util.List;
 import java.util.Optional;
 
 public interface IFileService {
@@ -34,6 +35,8 @@ public interface IFileService {
      * @throws Exception если произошла ошибка
      */
     void deleteFile(String bucketName, String fileName) throws Exception;
+
+    void deleteFiles(String bucketName, List<String> fileNames) throws Exception;
 
     /**
      * Проверка существования файла в хранилище.

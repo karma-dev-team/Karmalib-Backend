@@ -6,7 +6,9 @@ import com.karmalib.karmalibbackend.file.application.exceptions.ApplicationFileN
 import com.karmalib.karmalibbackend.file.domain.entities.FileEntity;
 import com.karmalib.karmalibbackend.file.infrastructure.files.IFileService;
 import com.karmalib.karmalibbackend.file.infrastructure.repositories.FileRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -21,9 +23,11 @@ public class SaveFile implements ICommandHandler<SaveFileCommand> {
     @Autowired
     private FileRepository fileRepository;
 
-    private String bucketName = "files";
+    @Value("file.bucket-name")
+    private String bucketName;
 
     @Override
+    @Transactional
     public CommandResult handle(SaveFileCommand command) {
         if (command.getFileId() != null) {
             var file = fileRepository.findById(command.getFileId()).orElse(null);
@@ -55,9 +59,9 @@ public class SaveFile implements ICommandHandler<SaveFileCommand> {
             
             var file = FileEntity.builder()
                     .size(stream.length)
-                    .name(fileName)
                     .mimeType(command.getType().toString())
                     .build();
+            file.setName(buildName(file.id, command.getName()));
             file.setPath(buildPath(file.id));
             fileRepository.save(file);
 
@@ -69,5 +73,9 @@ public class SaveFile implements ICommandHandler<SaveFileCommand> {
 
     private String buildPath(UUID id) {
         return "/static/files/" + id;
+    }
+
+    private String buildName(UUID id, String name) {
+        return id.toString() + "_" + name;
     }
 }
