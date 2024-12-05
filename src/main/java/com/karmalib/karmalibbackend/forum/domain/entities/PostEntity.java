@@ -4,6 +4,7 @@ import com.karmalib.karmalibbackend.common.domain.BaseEntity;
 import com.karmalib.karmalibbackend.file.domain.entities.FileEntity;
 import com.karmalib.karmalibbackend.forum.domain.enums.PostStatus;
 import com.karmalib.karmalibbackend.forum.domain.events.PostApproved;
+import com.karmalib.karmalibbackend.forum.domain.events.PostPinned;
 import com.karmalib.karmalibbackend.user.domain.entities.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,6 +35,7 @@ public class PostEntity extends BaseEntity {
     private int likesCount = likes.size();
 
     private PostStatus status = PostStatus.Waiting;
+    private Boolean pinned;
 
     @NonNull
     private String text;
@@ -55,5 +57,10 @@ public class PostEntity extends BaseEntity {
     public void approve(UserEntity user) {
         status = PostStatus.Approved;
         addDomainEvent(new PostApproved(this.id, user.id));
+    }
+
+    public void pin(boolean pin) {
+        pinned = pin;
+        addDomainEvent(new PostPinned(this.id, this.getUser().id));
     }
 }

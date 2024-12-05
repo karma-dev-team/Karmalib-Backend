@@ -13,6 +13,7 @@ import com.karmalib.karmalibbackend.file.application.queries.models.GetFileQuery
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,6 +36,16 @@ public class FileService {
 
     public CommandResult saveFile(SaveFileCommand command) {
         return saveFileHandler.handle(command);
+    }
+
+    // TODO: implement batch file upload
+    public List<CommandResult> saveFiles(List<SaveFileCommand> commands) {
+        List<CommandResult> results = new ArrayList<>();
+        for (SaveFileCommand command : commands) {
+            results.add(saveFileHandler.handle(command));
+        }
+
+        return results;
     }
 
     public List<FileModel> getFiles(GetFilesListQuery query) {
