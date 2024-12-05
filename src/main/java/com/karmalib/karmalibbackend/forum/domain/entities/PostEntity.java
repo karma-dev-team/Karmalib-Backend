@@ -52,7 +52,8 @@ public class PostEntity extends BaseEntity {
     )
     private Set<FileEntity> attachments;
 
-    private boolean hidden;
+    @Builder.Default
+    private boolean hidden = false;
 
     public void approve(UserEntity user) {
         status = PostStatus.Approved;
