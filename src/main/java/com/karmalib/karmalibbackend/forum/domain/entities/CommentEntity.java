@@ -1,6 +1,7 @@
 package com.karmalib.karmalibbackend.forum.domain.entities;
 
 import com.karmalib.karmalibbackend.common.domain.BaseEntity;
+import com.karmalib.karmalibbackend.forum.domain.enums.ReactionType;
 import com.karmalib.karmalibbackend.forum.domain.events.CommentLikeAdded;
 import com.karmalib.karmalibbackend.user.domain.entities.UserEntity;
 import jakarta.persistence.*;
@@ -21,7 +22,9 @@ public class CommentEntity extends BaseEntity {
     @ManyToOne
     private UserEntity author;
     private String text;
+    @Builder.Default
     private Boolean isDeleted = false;
+    @Builder.Default
     private Boolean isSpoiler = false;
 
     private int likes;
@@ -33,42 +36,57 @@ public class CommentEntity extends BaseEntity {
     @OneToMany(mappedBy = "parentComment", cascade = CascadeType.ALL)
     private List<CommentEntity> replies = new ArrayList<>(); // Список ответов
 
+
+    @Builder.Default
+    private boolean pinned = false;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "comment", orphanRemoval = true)
-    private List<CommentLikeEntity> likesList = new ArrayList<>(); // Список лайков
+    private List<ReactionEntity> reactions = new ArrayList<>(); // Список реакций
 
-
-    // Добавление лайка
-    public void addLike(UserEntity user) {
-        // Проверяем, лайкнул ли уже пользователь
-        boolean alreadyLiked = likesList.stream().anyMatch(like -> like.getUser().id.equals(user.id));
-        if (alreadyLiked) {
-            throw new IllegalStateException("User has already liked this comment");
-        }
-
-        // Добавляем лайк
-        CommentLikeEntity newLike = CommentLikeEntity.builder()
-                .user(user)
-                .comment(this)
-                .likedAt(LocalDateTime.now())
-                .build();
-        likesList.add(newLike);
-
-        // Увеличиваем счётчик лайков
-        this.likes++;
+    public boolean hasReaction(UserEntity user, ReactionType type) {
+        return reactions.stream()
+                .anyMatch(reaction -> reaction.getUser().id.equals(user.id) && reaction.getType() == type);
     }
 
-    // Удаление лайка
-    public void removeLike(UserEntity user) {
-        // Проверяем, существует ли лайк от пользователя
-        CommentLikeEntity likeToRemove = likesList.stream()
-                .filter(like -> like.getUser().id.equals(user.id))
+    // Добавление реакции
+    public void addReaction(UserEntity user, ReactionType type) {
+        if (hasReaction(user, type)) {
+            throw new IllegalStateException("User has already added this reaction to the comment");
+        }
+
+        // Добавляем новую реакцию
+        ReactionEntity newReaction = ReactionEntity.builder()
+                .user(user)
+                .comment(this)
+                .type(type)
+                .build();
+
+        reactions.add(newReaction);
+    }
+
+    // Удаление реакции
+    public void removeReaction(UserEntity user, ReactionType type) {
+        // Ищем реакцию для удаления
+        ReactionEntity reactionToRemove = reactions.stream()
+                .filter(reaction -> reaction.getUser().id.equals(user.id) && reaction.getType() == type)
                 .findFirst()
-                .orElseThrow(() -> new IllegalStateException("User hasn't liked this comment"));
+                .orElseThrow(() -> new IllegalStateException("User hasn't added this reaction to the comment"));
 
-        // Удаляем лайк
-        likesList.remove(likeToRemove);
+        // Удаляем реакцию
+        reactions.remove(reactionToRemove);
+    }
 
-        // Уменьшаем счётчик лайков
-        this.likes--;
+    // Подсчет лайков
+    public long getLikesCount() {
+        return reactions.stream()
+                .filter(reaction -> reaction.getType() == ReactionType.LIKE)
+                .count();
+    }
+
+    // Подсчет дизлайков
+    public long getDislikesCount() {
+        return reactions.stream()
+                .filter(reaction -> reaction.getType() == ReactionType.DISLIKE)
+                .count();
     }
 }

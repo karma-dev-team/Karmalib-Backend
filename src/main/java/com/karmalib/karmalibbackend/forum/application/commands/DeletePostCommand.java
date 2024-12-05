@@ -1,4 +1,4 @@
 package com.karmalib.karmalibbackend.forum.application.commands;
 
-public class AddTag {
+public class DeletePostCommand {
 }

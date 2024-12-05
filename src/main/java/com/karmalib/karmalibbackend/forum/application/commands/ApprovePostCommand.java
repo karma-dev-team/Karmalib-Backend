@@ -6,6 +6,6 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public class LikeCommentaryCommand extends BaseCommand {
-    private UUID commentId;
+public class ApprovePostCommand extends BaseCommand {
+    private UUID postId;
 }
