@@ -26,6 +26,7 @@ public class GroupInvitationEntity extends BaseEntity {
 
     @Column(nullable = false)
     @Builder.Default
+    @Enumerated(EnumType.STRING)
     private InvitationStatus status = InvitationStatus.Pending;
 
     public void accept() {

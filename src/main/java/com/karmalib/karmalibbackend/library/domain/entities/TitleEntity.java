@@ -2,6 +2,7 @@ package com.karmalib.karmalibbackend.library.domain.entities;
 
 import com.karmalib.karmalibbackend.common.domain.BaseEntity;
 import com.karmalib.karmalibbackend.file.domain.entities.FileEntity;
+import com.karmalib.karmalibbackend.forum.domain.entities.CommentEntity;
 import com.karmalib.karmalibbackend.user.domain.entities.AuthorEntity;
 import com.karmalib.karmalibbackend.user.domain.entities.UserEntity;
 import jakarta.persistence.*;
@@ -57,6 +58,10 @@ public class TitleEntity extends BaseEntity {
     private boolean hentai = false;
     private boolean ronabe = false;
     private String moderationStatus;
+
+    @OneToMany
+    @JoinColumn(name = "comment_id")
+    private List<CommentEntity> comments;
 
     @OneToMany
     @JoinColumn(name = "title_id")

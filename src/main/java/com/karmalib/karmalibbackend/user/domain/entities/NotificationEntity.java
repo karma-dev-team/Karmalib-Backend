@@ -23,6 +23,7 @@ public class NotificationEntity extends BaseEntity {
 
     private String content;
     private String title;
+    @Enumerated(EnumType.STRING)
     private NotificationType type;
 
     @ManyToOne

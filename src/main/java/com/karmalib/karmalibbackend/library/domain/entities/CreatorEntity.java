@@ -3,9 +3,7 @@ package com.karmalib.karmalibbackend.library.domain.entities;
 import com.karmalib.karmalibbackend.common.domain.BaseEntity;
 import com.karmalib.karmalibbackend.library.domain.enums.CountryType;
 import com.karmalib.karmalibbackend.library.domain.enums.CreatorType;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
@@ -19,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CreatorEntity extends BaseEntity {
     private String name;
+    @Enumerated(EnumType.STRING)
     private CreatorType type;
     @ElementCollection(targetClass = String.class)
     private List<String> aliases;

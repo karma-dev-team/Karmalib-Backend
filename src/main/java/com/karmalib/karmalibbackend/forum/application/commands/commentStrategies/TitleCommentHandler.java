@@ -24,7 +24,6 @@ public class TitleCommentHandler implements CommentTargetHandler {
         if (title == null) {
             throw new IllegalArgumentException("Title not found");
         }
-        comment.setTitle(title);
         title.getComments().add(comment);
         titleRepository.save(title);
     }
