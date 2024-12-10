@@ -16,9 +16,20 @@ public class GetComments implements IQueryHandler<GetCommentsQuery, List<Comment
 
     @Override
     public List<CommentModel> handle(GetCommentsQuery query) {
-        var comments = commentRepository.findAllByPostId(query.getPostId());
-        return comments.stream()
-                .map(CommentModel::fromEntity)
-                .toList();
+        if (query.getPostId() != null) {
+            return commentRepository.findByPostId(query.getPostId()).stream()
+                    .map(CommentModel::fromEntity)
+                    .toList();
+        } else if (query.getUserId() != null) {
+            return commentRepository.findByAuthorId(query.getUserId()).stream()
+                    .map(CommentModel::fromEntity)
+                    .toList();
+        } else if (query.getTitleId() != null) {
+            return commentRepository.findByTitleId(query.getTitleId()).stream()
+                    .map(CommentModel::fromEntity)
+                    .toList();
+        } else {
+            return List.of();
+        }
     }
 }

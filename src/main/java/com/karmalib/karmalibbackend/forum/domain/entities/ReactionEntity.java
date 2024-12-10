@@ -22,6 +22,10 @@ public class ReactionEntity extends BaseEntity {
     @JoinColumn(name = "comment_id", nullable = true)
     private CommentEntity comment; // Комментарий, к которому относится реакция (если есть)
 
+    @ManyToOne
+    @JoinColumn(name = "post_id", nullable = true)
+    private PostEntity post;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ReactionType type; // Тип реакции (LIKE, DISLIKE и т.д.)
