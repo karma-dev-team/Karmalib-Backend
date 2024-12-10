@@ -6,6 +6,7 @@ import com.karmalib.karmalibbackend.forum.domain.events.CommentLikeAdded;
 import com.karmalib.karmalibbackend.user.domain.entities.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import net.minidev.json.annotate.JsonIgnore;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class CommentEntity extends BaseEntity {
     @Builder.Default
     private boolean pinned = false;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "comment", orphanRemoval = true)
     private List<ReactionEntity> reactions = new ArrayList<>(); // Список реакций
 

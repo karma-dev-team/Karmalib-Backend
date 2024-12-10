@@ -14,6 +14,7 @@ import com.karmalib.karmalibbackend.user.domain.events.FriendAdded;
 import com.karmalib.karmalibbackend.user.domain.events.FriendRemoved;
 import jakarta.persistence.*;
 import lombok.*;
+import net.minidev.json.annotate.JsonIgnore;
 
 import java.util.HashSet;
 import java.util.List;
@@ -39,6 +40,7 @@ public class UserEntity extends BaseEntity {
     @Builder.Default
     private boolean isStaff = false;
     @Builder.Default
+    @JsonIgnore
     private boolean isSuperuser = false;
     private int sex;
     @Builder.Default
