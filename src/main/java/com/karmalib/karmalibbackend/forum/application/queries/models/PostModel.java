@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @SuperBuilder
 public class PostModel {
     private UUID id;
-    private UUID userId;
+    private UserModel author;
     private String title;
     private String text;
     private int likesCount;
@@ -40,7 +40,7 @@ public class PostModel {
     public static PostModel fromEntity(PostEntity entity) {
         return PostModel.builder()
                 .id(entity.id)
-                .userId(entity.getUser() != null ? entity.getUser().id : null)
+                .author(UserModel.fromEntity(entity.getUser()))
                 .title(entity.getTitle())
                 .text(entity.getText())
                 .likesCount(entity.getLikesCount()) // Берем счетчик лайков
