@@ -30,6 +30,7 @@ public class PostModel {
     private UUID approvedById;
     private List<CommentModel> comments;
     private Set<FileModel> attachments;
+    private Set<PostTagModel> tags;
 
     /**
      * Создает экземпляр PostModel на основе PostEntity.

@@ -49,7 +49,7 @@ public class PostEntity extends BaseEntity {
             joinColumns = @JoinColumn(name = "post_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
-    private Set<TagEntity> tags;
+    private Set<PostTagEntity> tags;
 
     @ManyToMany
     @JoinTable(

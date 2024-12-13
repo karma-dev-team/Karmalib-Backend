@@ -14,7 +14,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TagEntity extends BaseEntity {
+public class PostTagEntity extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String name;
 
@@ -39,5 +39,5 @@ public class TagEntity extends BaseEntity {
             joinColumns = @JoinColumn(name = "tag_id"),
             inverseJoinColumns = @JoinColumn(name = "related_tag_id")
     )
-    private Set<TagEntity> relatedTags = new HashSet<>();
+    private Set<PostTagEntity> relatedTags = new HashSet<>();
 }
