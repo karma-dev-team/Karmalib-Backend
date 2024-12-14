@@ -8,25 +8,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AddAuthorToTitle implements ICommandHandler<AddAuthorToTitleCommand> {
+public class AddTitleToHistory implements ICommandHandler<AddTitleToHistoryCommand> {
+    @Autowired
+    private HistoryRepository historyRepository;
+
     @Autowired
     private TitleRepository titleRepository;
 
-    @Autowired
-    private AuthorRepository authorRepository;
-
     @Override
-    public CommandResult handle(AddAuthorToTitleCommand command) {
+    public CommandResult handle(AddTitleToHistoryCommand command) {
         var title = titleRepository.findById(command.getTitleId()).orElse(null);
-        var author = authorRepository.findById(command.getAuthorId()).orElse(null);
 
-        if (title == null || author == null) {
-            return CommandResult.failure("Title or Author not found");
+        if (title == null) {
+            return CommandResult.failure("Title not found");
         }
 
-        title.getAuthors().add(author);
-        titleRepository.save(title);
+        var historyRecord = HistoryEntity.builder()
+                .userId(command.getUserId())
+                .title(title)
+                .viewedAt(LocalDateTime.now())
+                .build();
 
-        return CommandResult.success(title.id);
+        historyRepository.save(historyRecord);
+        return CommandResult.success(historyRecord.getId());
     }
 }
