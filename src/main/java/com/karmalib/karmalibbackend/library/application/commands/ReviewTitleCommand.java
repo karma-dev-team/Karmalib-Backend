@@ -10,6 +10,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ReviewTitleCommand extends BaseCommand {
     private UUID titleId;
-    private UUID userId;
-    private String review;
+    private String content;
+    private int rating;
 }

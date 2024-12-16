@@ -9,6 +9,6 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 public class CreateRecommendationCommand extends BaseCommand {
-    private String name;
-    private List<UUID> titleIds;
+    private UUID recommendedTitleId;
+    private UUID titleFromToRecommendId;
 }

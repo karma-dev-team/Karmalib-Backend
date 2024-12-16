@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Data
 @AllArgsConstructor
-public class LikeRecommendationCommand extends BaseCommand {
+public class ReactToRecommendationCommand extends BaseCommand {
     private UUID recommendationId;
     private UUID userId;
 }

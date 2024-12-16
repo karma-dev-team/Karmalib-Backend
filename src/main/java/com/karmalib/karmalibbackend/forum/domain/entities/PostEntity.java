@@ -78,9 +78,9 @@ public class PostEntity extends BaseEntity {
     }
 
     // Добавление реакции
-    public void addReaction(UserEntity user, ReactionType type) {
+    public boolean addReaction(UserEntity user, ReactionType type) {
         if (hasReaction(user, type)) {
-            throw new IllegalStateException("User has already added this reaction to the comment");
+            return false;
         }
 
         // Добавляем новую реакцию
@@ -97,6 +97,8 @@ public class PostEntity extends BaseEntity {
         }
 
         reactions.add(newReaction);
+
+        return true; 
     }
 
     // Удаление реакции

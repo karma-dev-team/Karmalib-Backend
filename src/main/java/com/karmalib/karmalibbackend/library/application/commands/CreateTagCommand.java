@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Data
 @AllArgsConstructor
-public class AddTagCommand extends BaseCommand {
+public class CreateTagCommand extends BaseCommand {
     private UUID titleId;
     private String tag;
 }

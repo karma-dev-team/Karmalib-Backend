@@ -1,7 +1,7 @@
 package com.karmalib.karmalibbackend.forum.application.commands;
 
 import com.karmalib.karmalibbackend.common.application.BaseCommand;
-import com.karmalib.karmalibbackend.file.application.commands.SaveFileCommand;
+import com.karmalib.karmalibbackend.file.application.commands.InputFileCommand;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -14,5 +14,5 @@ public class UpdatePostCommand extends BaseCommand {
     private UUID postId;
     private String text;
     private Boolean hidden;
-    private List<SaveFileCommand> attachments;
+    private List<InputFileCommand> attachments;
 }

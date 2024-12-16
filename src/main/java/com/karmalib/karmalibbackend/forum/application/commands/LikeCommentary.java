@@ -26,8 +26,12 @@ public class LikeCommentary implements ICommandHandler<LikeCommentaryCommand> {
         if (comment.hasReaction(accessPolicy.getCurrentUser(), ReactionType.LIKE)) {
             comment.removeReaction(accessPolicy.getCurrentUser(), ReactionType.LIKE);
         } else {
-            comment.addReaction(accessPolicy.getCurrentUser(), ReactionType.LIKE);
+            var success = comment.addReaction(accessPolicy.getCurrentUser(), ReactionType.LIKE);
+            if (!success) {
+                return CommandResult.failure("Комментарий уже залайкан");
+            }
         }
+
 
         commentRepository.save(comment);
 

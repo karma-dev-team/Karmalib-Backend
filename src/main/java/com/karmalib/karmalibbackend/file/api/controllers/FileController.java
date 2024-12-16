@@ -3,7 +3,7 @@ package com.karmalib.karmalibbackend.file.api.controllers;
 import com.karmalib.karmalibbackend.common.application.CommandResult;
 import com.karmalib.karmalibbackend.common.presentation.CustomResponseEntity;
 import com.karmalib.karmalibbackend.file.application.commands.DeleteFilesCommand;
-import com.karmalib.karmalibbackend.file.application.commands.SaveFileCommand;
+import com.karmalib.karmalibbackend.file.application.commands.InputFileCommand;
 import com.karmalib.karmalibbackend.file.application.queries.*;
 import com.karmalib.karmalibbackend.file.application.queries.models.FileModel;
 import com.karmalib.karmalibbackend.file.application.queries.models.GetFileQuery;
@@ -46,7 +46,7 @@ public class FileController {
 
     // Сохранение файла
     @PostMapping
-    public ResponseEntity<CustomResponseEntity> saveFile(@RequestBody SaveFileCommand command) {
+    public ResponseEntity<CustomResponseEntity> saveFile(@RequestBody InputFileCommand command) {
         CommandResult result = fileService.saveFile(command);
         return buildResponse(result);
     }

@@ -20,6 +20,9 @@ public class BookmarkEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+    @ManyToOne
+    @JoinColumn
+    private TitleEntity title;
     @ManyToMany
     @JoinTable(
             name = "bookmark_to_categories",

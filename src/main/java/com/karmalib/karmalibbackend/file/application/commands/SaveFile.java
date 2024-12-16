@@ -6,6 +6,7 @@ import com.karmalib.karmalibbackend.file.application.exceptions.ApplicationFileN
 import com.karmalib.karmalibbackend.file.domain.entities.FileEntity;
 import com.karmalib.karmalibbackend.file.infrastructure.files.IFileService;
 import com.karmalib.karmalibbackend.file.infrastructure.repositories.FileRepository;
+import jakarta.persistence.Tuple;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,8 +16,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Service
-public class SaveFile implements ICommandHandler<SaveFileCommand> {
-    // used for 
+public class SaveFile implements ICommandHandler<InputFileCommand> {
     @Autowired
     private IFileService fileService;
 
@@ -28,47 +28,60 @@ public class SaveFile implements ICommandHandler<SaveFileCommand> {
 
     @Override
     @Transactional
-    public CommandResult handle(SaveFileCommand command) {
-        if (command.getFileId() != null) {
-            var file = fileRepository.findById(command.getFileId()).orElse(null);
-            if (file == null) {
-                // throwing bc not always you check when file is uploaded
-                throw new ApplicationFileNotFoundException("No file found with given id");
-            }
+    public CommandResult handle(InputFileCommand command) {
+        try {
+            FileEntity file = handleInner(command);
             return CommandResult.success(file.id);
+        } catch (ApplicationFileNotFoundException ex) {
+            assert command.getFileId() != null;
+            return CommandResult.notFound(ex.getMessage(), command.getFileId());
+        } catch (IllegalArgumentException ex) {
+            return CommandResult.badRequest(ex.getMessage());
+        } catch (Exception ex) {
+            return CommandResult.internalServerError("Error while processing file: " + ex.getMessage());
         }
+    }
+
+    public FileEntity handleInner(InputFileCommand command) {
+        if (command.getFileId() != null) {
+            return fileRepository.findById(command.getFileId())
+                    .orElseThrow(() -> new ApplicationFileNotFoundException("No file found with given id"));
+        }
+
         if (command.getStream() != null) {
-            String fileName;
+            String fileName = command.getName() == null
+                    ? UUID.randomUUID().toString()
+                    : command.getName();
 
-            if (command.getName() == null)
-                fileName = UUID.randomUUID().toString();
-            else
-                fileName = command.getName();
+            byte[] stream = readStream(command);
 
-            byte[] stream = new byte[0];
-            try {
-                int length = command.getStream().read(stream);
-            } catch (IOException e) {
-                return CommandResult.failure("Failed to read stream");
-            }
             try {
                 fileService.uploadFile(bucketName, fileName, command.getStream(), command.getType().toString());
             } catch (Exception e) {
-                return CommandResult.failure("Error while uploading file, error:" + e.getMessage());
+                throw new IllegalArgumentException("Error while uploading file: " + e.getMessage(), e);
             }
-            
-            var file = FileEntity.builder()
+
+            FileEntity file = FileEntity.builder()
                     .size(stream.length)
                     .mimeType(command.getType().toString())
                     .build();
+
             file.setName(buildName(file.id, command.getName()));
             file.setPath(buildPath(file.id));
-            fileRepository.save(file);
 
-            return CommandResult.success(file.id);
+            return fileRepository.save(file);
         }
 
-        return CommandResult.failure("No file id, or stream found");
+        throw new IllegalArgumentException("No file ID or stream found in the command.");
+    }
+
+    private byte[] readStream(InputFileCommand command) {
+        try {
+            assert command.getStream() != null;
+            return command.getStream().readAllBytes();
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Failed to read input stream", e);
+        }
     }
 
     private String buildPath(UUID id) {

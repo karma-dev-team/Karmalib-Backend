@@ -4,7 +4,7 @@ import com.karmalib.karmalibbackend.common.application.CommandResult;
 import com.karmalib.karmalibbackend.file.application.commands.DeleteFiles;
 import com.karmalib.karmalibbackend.file.application.commands.DeleteFilesCommand;
 import com.karmalib.karmalibbackend.file.application.commands.SaveFile;
-import com.karmalib.karmalibbackend.file.application.commands.SaveFileCommand;
+import com.karmalib.karmalibbackend.file.application.commands.InputFileCommand;
 import com.karmalib.karmalibbackend.file.application.queries.GetFile;
 import com.karmalib.karmalibbackend.file.application.queries.GetFilesList;
 import com.karmalib.karmalibbackend.file.application.queries.GetFilesListQuery;
@@ -34,14 +34,14 @@ public class FileService {
         return deleteFilesHandler.handle(command);
     }
 
-    public CommandResult saveFile(SaveFileCommand command) {
+    public CommandResult saveFile(InputFileCommand command) {
         return saveFileHandler.handle(command);
     }
 
     // TODO: implement batch file upload
-    public List<CommandResult> saveFiles(List<SaveFileCommand> commands) {
+    public List<CommandResult> saveFiles(List<InputFileCommand> commands) {
         List<CommandResult> results = new ArrayList<>();
-        for (SaveFileCommand command : commands) {
+        for (InputFileCommand command : commands) {
             results.add(saveFileHandler.handle(command));
         }
 

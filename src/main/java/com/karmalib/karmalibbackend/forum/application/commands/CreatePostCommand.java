@@ -1,7 +1,7 @@
 package com.karmalib.karmalibbackend.forum.application.commands;
 
 import com.karmalib.karmalibbackend.common.application.BaseCommand;
-import com.karmalib.karmalibbackend.file.application.commands.SaveFileCommand;
+import com.karmalib.karmalibbackend.file.application.commands.InputFileCommand;
 import lombok.Data;
 
 import java.util.List;
@@ -10,5 +10,5 @@ import java.util.List;
 public class CreatePostCommand extends BaseCommand {
     private String text;
     private String title;
-    private List<SaveFileCommand> files;
+    private List<InputFileCommand> files;
 }
