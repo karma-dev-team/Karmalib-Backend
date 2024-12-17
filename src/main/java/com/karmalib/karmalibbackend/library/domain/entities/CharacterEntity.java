@@ -3,6 +3,7 @@ package com.karmalib.karmalibbackend.library.domain.entities;
 import com.karmalib.karmalibbackend.common.domain.BaseEntity;
 import com.karmalib.karmalibbackend.file.domain.entities.FileEntity;
 import com.karmalib.karmalibbackend.library.domain.enums.CharacterStatus;
+import com.karmalib.karmalibbackend.library.domain.enums.ModerationStatus;
 import com.karmalib.karmalibbackend.user.domain.entities.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,5 +27,5 @@ public class CharacterEntity extends BaseEntity {
     private UserEntity author;
     private String alternativeName;
     @Enumerated(EnumType.STRING)
-    private CharacterStatus status;
+    private ModerationStatus status;
 }

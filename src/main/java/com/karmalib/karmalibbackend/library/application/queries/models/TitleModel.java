@@ -3,6 +3,10 @@ package com.karmalib.karmalibbackend.library.application.queries.models;
 import com.karmalib.karmalibbackend.common.application.BaseModel;
 import com.karmalib.karmalibbackend.file.application.queries.models.FileModel;
 import com.karmalib.karmalibbackend.library.domain.entities.TitleEntity;
+import com.karmalib.karmalibbackend.library.domain.enums.ModerationStatus;
+import com.karmalib.karmalibbackend.library.domain.enums.PgRatings;
+import com.karmalib.karmalibbackend.library.domain.enums.TitleStatus;
+import com.karmalib.karmalibbackend.library.domain.enums.TranslationStatus;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
@@ -14,20 +18,19 @@ import java.util.stream.Collectors;
 public class TitleModel extends BaseModel {
     private String name;
     private String description;
-    private String status;
-    private String translationStatus;
-    private String alternateNames;
+    private TitleStatus status;
+    private TranslationStatus translationStatus;
+    private List<String> alternateNames;
     private LocalDateTime releaseDate;
-    private String pgRating;
+    private PgRatings pgRating;
     private boolean hentai;
     private boolean ronabe;
-    private String moderationStatus;
+    private ModerationStatus moderationStatus;
 
-    private Set<CategoryModel> category;          // ID категории
     private FileModel coverImage;     // Обложка (без циклической зависимости)
     private List<CreatorModel> creators;    // ID оригинального автора
     private List<TitleTagModel> tags;        // Список ID тегов
-    private List<AuthorModel> authors;     // Список ID авторов
+    private List<AuthorModel> translators;     // Список ID авторов
 
     public static TitleModel fromEntity(TitleEntity entity) {
         if (entity == null) {
@@ -48,12 +51,6 @@ public class TitleModel extends BaseModel {
                 .hentai(entity.isHentai()) // Приватное поле, используем геттер
                 .ronabe(entity.isRonabe()) // Приватное поле, используем геттер
                 .moderationStatus(entity.getModerationStatus()) // Приватное поле, используем геттер
-                .category(
-                        entity.getCategory() == null ? null :
-                                entity.getCategory().stream()
-                                        .map(CategoryModel::fromEntity) // Преобразование множества категорий
-                                        .collect(Collectors.toSet())
-                )
                 .coverImage(FileModel.fromEntity(entity.getCoverImage())) // Преобразование обложки
                 .creators(
                         entity.getCreators() == null ? null :
@@ -67,9 +64,9 @@ public class TitleModel extends BaseModel {
                                         .map(TitleTagModel::fromEntity) // Преобразование списка тегов
                                         .toList()
                 )
-                .authors(
-                        entity.getAuthors() == null ? null :
-                                entity.getAuthors().stream()
+                .translators(
+                        entity.getTranslators() == null ? null :
+                                entity.getTranslators().stream()
                                         .map(AuthorModel::fromEntity) // Преобразование списка авторов
                                         .toList()
                 )

@@ -32,7 +32,7 @@ public class CreateCharacter implements ICommandHandler<CreateCharacterCommand> 
             return CommandResult.notFound("Title not found", command.getTitleId());
         }
 
-        var file = saveFile.handle(command.getAvatar());
+        var file = saveFile.handleInner(command.getAvatar());
 
         var character = CharacterEntity.builder()
                 .name(command.getName())

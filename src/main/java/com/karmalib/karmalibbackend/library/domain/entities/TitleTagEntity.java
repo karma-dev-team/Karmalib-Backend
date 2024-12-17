@@ -17,5 +17,6 @@ import lombok.NoArgsConstructor;
 public class TitleTagEntity extends BaseEntity {
     private String name;
     private String description;
-    private Boolean hidden;
+    @Builder.Default
+    private Boolean hidden = false;
 }

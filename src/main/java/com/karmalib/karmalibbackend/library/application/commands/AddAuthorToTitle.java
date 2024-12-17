@@ -21,10 +21,10 @@ public class AddAuthorToTitle implements ICommandHandler<AddAuthorToTitleCommand
         var author = authorRepository.findById(command.getAuthorId()).orElse(null);
 
         if (title == null || author == null) {
-            return CommandResult.failure("Title or Author not found");
+            return CommandResult.notFound("Тайтл или автор не найден", command.getAuthorId());
         }
 
-        title.getAuthors().add(author);
+        title.getTranslators().add(author);
         titleRepository.save(title);
 
         return CommandResult.success(title.id);

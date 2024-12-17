@@ -17,7 +17,7 @@ public class DeleteAuthor implements ICommandHandler<DeleteAuthorCommand> {
         var author = authorRepository.findById(command.getAuthorId()).orElse(null);
 
         if (author == null) {
-            return CommandResult.failure("Author not found");
+            return CommandResult.notFound("Авторы не найдены", command.getAuthorId());
         }
 
         authorRepository.delete(author);

@@ -10,4 +10,5 @@ import java.util.UUID;
 @Repository
 public interface BookmarkRepository extends JpaRepository<BookmarkEntity, UUID> {
     Optional<BookmarkEntity> findByUserIdAndTitleId(UUID userId, UUID titleId);
+    boolean existsByCategoryId(UUID categoryId);
 }

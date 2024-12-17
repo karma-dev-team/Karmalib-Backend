@@ -2,6 +2,7 @@ package com.karmalib.karmalibbackend.library.application.commands;
 
 import com.karmalib.karmalibbackend.common.application.CommandResult;
 import com.karmalib.karmalibbackend.common.application.ICommandHandler;
+import com.karmalib.karmalibbackend.library.domain.enums.ModerationStatus;
 import com.karmalib.karmalibbackend.library.infrastructure.repositories.AuthorRepository;
 import com.karmalib.karmalibbackend.library.infrastructure.repositories.CharacterRepository;
 import com.karmalib.karmalibbackend.library.infrastructure.repositories.TitleRepository;
@@ -21,9 +22,9 @@ public class ApproveCharacter implements ICommandHandler<ApproveCharacterCommand
             return CommandResult.notFound("Character not found", command.getCharacterId());
         }
 
-        character.setApproved(true);
+        character.setStatus(ModerationStatus.Approved);
         characterRepository.save(character);
 
-        return CommandResult.success(character.getId());
+        return CommandResult.success(character.id);
     }
 }

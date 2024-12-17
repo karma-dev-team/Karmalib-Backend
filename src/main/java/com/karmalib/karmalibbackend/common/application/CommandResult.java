@@ -80,6 +80,10 @@ public class CommandResult {
         return new CommandResult("", null, null, HttpStatus.NO_CONTENT);
     }
 
+    public static CommandResult conflict(String message) {
+        return new CommandResult(message, null, null, HttpStatus.CONFLICT);
+    }
+
     // ----- Методы для обратной совместимости -----
 
     // failure без ID

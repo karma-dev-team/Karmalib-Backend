@@ -16,7 +16,7 @@ public class DeleteBookmarked implements ICommandHandler<DeleteBookmarkedCommand
         var bookmark = bookmarkRepository.findById(command.getBookmarkId()).orElse(null);
 
         if (bookmark == null) {
-            return CommandResult.failure("Bookmark not found");
+            return CommandResult.notFound("Закладка не найдена", command.getBookmarkId());
         }
 
         bookmarkRepository.delete(bookmark);

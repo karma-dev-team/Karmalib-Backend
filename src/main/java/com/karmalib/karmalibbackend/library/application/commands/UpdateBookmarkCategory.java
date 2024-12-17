@@ -1,31 +1,42 @@
 package com.karmalib.karmalibbackend.library.application.commands;
+
 import com.karmalib.karmalibbackend.common.application.CommandResult;
 import com.karmalib.karmalibbackend.common.application.ICommandHandler;
 import com.karmalib.karmalibbackend.library.infrastructure.repositories.BookmarkCategoryRepository;
-import com.karmalib.karmalibbackend.library.infrastructure.repositories.BookmarkRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UpdateBookmarkCategory implements ICommandHandler<UpdateBookmarkCategoryCommand> {
+
     @Autowired
-    private BookmarkCategoryRepository bookmarkCategoryRepository;
+    private BookmarkCategoryRepository categoryRepository;
 
     @Override
+    @Transactional
     public CommandResult handle(UpdateBookmarkCategoryCommand command) {
-        var category = bookmarkCategoryRepository.findById(command.getCategoryId()).orElse(null);
+        // Найти категорию по ID
+        var category = categoryRepository.findById(command.getCategoryId())
+                .orElse(null);
 
         if (category == null) {
-            return CommandResult.notFound("Category not found", command.getCategoryId());
+            return CommandResult.notFound("Категория не найдена", command.getCategoryId());
         }
 
-        if (command.getIsPublic() != null)
-            category.setIsPubliclyVisible(command.getIsPublic());
-        if (command.getIsSendNotifications() != null)
-            category.setIsSendNotifications(command.getIsSendNotifications());
-        if (command.getNewName() != null && !command.getNewName().isEmpty())
+        // Обновить поля категории
+        if (command.getNewName() != null && !command.getNewName().isBlank()) {
             category.setName(command.getNewName());
-        bookmarkCategoryRepository.save(category);
+        }
+        if (command.getIsPublic() != null) {
+            category.setIsPubliclyVisible(command.getIsPublic());
+        }
+        if (command.getIsSendNotifications() != null) {
+            category.setIsSendNotifications(command.getIsSendNotifications());
+        }
+
+        // Сохранить изменения
+        categoryRepository.save(category);
 
         return CommandResult.success(category.id);
     }

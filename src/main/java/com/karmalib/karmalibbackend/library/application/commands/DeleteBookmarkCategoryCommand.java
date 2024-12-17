@@ -6,5 +6,8 @@ import lombok.Data;
 
 import java.util.UUID;
 
-public class DeleteBookmarkCategoryCommand {
+@Data
+@AllArgsConstructor
+public class DeleteBookmarkCategoryCommand extends BaseCommand {
+    private UUID bookmarkCategoryId;
 }

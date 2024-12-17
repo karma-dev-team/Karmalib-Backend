@@ -16,28 +16,13 @@ import java.util.UUID;
 @AllArgsConstructor
 public class AuthorEntity extends BaseEntity {
 
+    // Автор это переводчик
     @ManyToOne
     private GroupEntity group;
 
     @ManyToOne
     private UserEntity user;
 
-    private UUID titleId;
-
-    private static AuthorEntity create(GroupEntity group) {
-        var author = new AuthorEntity();
-
-        author.setGroup(group);
-
-        return author;
-    }
-
-    private static AuthorEntity create(UserEntity user) {
-        var author = new AuthorEntity();
-
-        author.setUser(user);
-
-        return author;
-    }
-
+    @Builder.Default
+    private Boolean isAllowedToPost = true;
 }

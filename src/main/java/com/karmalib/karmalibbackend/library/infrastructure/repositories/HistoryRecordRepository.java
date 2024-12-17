@@ -8,4 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface HistoryRecordRepository extends JpaRepository<HistoryRecordEntity, UUID> {
+    void deleteByUserId(UUID userId);
 }
