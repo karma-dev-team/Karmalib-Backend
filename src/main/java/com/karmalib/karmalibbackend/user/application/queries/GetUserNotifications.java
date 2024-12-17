@@ -1,8 +1,7 @@
 package com.karmalib.karmalibbackend.user.application.queries;
 
 import com.karmalib.karmalibbackend.common.application.IQueryHandler;
-import com.karmalib.karmalibbackend.user.application.queries.results.GroupModel;
-import com.karmalib.karmalibbackend.user.application.queries.results.NotificationModel;
+import com.karmalib.karmalibbackend.user.application.queries.models.NotificationModel;
 import com.karmalib.karmalibbackend.user.infrastructure.repositories.NotificationRepository;
 import com.karmalib.karmalibbackend.user.infrastructure.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

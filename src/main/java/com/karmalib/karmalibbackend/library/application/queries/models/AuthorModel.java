@@ -1,8 +1,8 @@
 package com.karmalib.karmalibbackend.library.application.queries.models;
 
 import com.karmalib.karmalibbackend.common.application.BaseModel;
-import com.karmalib.karmalibbackend.user.application.queries.results.GroupModel;
-import com.karmalib.karmalibbackend.user.application.queries.results.UserModel;
+import com.karmalib.karmalibbackend.user.application.queries.models.GroupModel;
+import com.karmalib.karmalibbackend.user.application.queries.models.UserModel;
 import com.karmalib.karmalibbackend.user.domain.entities.AuthorEntity;
 import lombok.experimental.SuperBuilder;
 

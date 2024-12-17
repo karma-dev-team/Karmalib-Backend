@@ -1,12 +1,11 @@
 package com.karmalib.karmalibbackend.user.application.queries;
 
 import com.karmalib.karmalibbackend.common.application.IQueryHandler;
-import com.karmalib.karmalibbackend.user.application.queries.results.UserModel;
+import com.karmalib.karmalibbackend.user.application.queries.models.UserModel;
 import com.karmalib.karmalibbackend.user.infrastructure.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

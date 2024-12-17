@@ -2,7 +2,7 @@ package com.karmalib.karmalibbackend.forum.application.queries.models;
 
 import com.karmalib.karmalibbackend.common.application.BaseModel;
 import com.karmalib.karmalibbackend.forum.domain.entities.CommentEntity;
-import com.karmalib.karmalibbackend.user.application.queries.results.UserModel;
+import com.karmalib.karmalibbackend.user.application.queries.models.UserModel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;

@@ -1,7 +1,7 @@
 package com.karmalib.karmalibbackend.user.application.services;
 
 import com.karmalib.karmalibbackend.user.application.queries.*;
-import com.karmalib.karmalibbackend.user.application.queries.results.*;
+import com.karmalib.karmalibbackend.user.application.queries.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

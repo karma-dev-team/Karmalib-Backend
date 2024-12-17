@@ -3,7 +3,7 @@ package com.karmalib.karmalibbackend.user.api.controllers;
 import com.karmalib.karmalibbackend.common.application.CommandResult;
 import com.karmalib.karmalibbackend.user.application.commands.*;
 import com.karmalib.karmalibbackend.user.application.queries.*;
-import com.karmalib.karmalibbackend.user.application.queries.results.*;
+import com.karmalib.karmalibbackend.user.application.queries.models.*;
 import com.karmalib.karmalibbackend.user.application.services.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package com.karmalib.karmalibbackend.user.application.queries;
 
 import com.karmalib.karmalibbackend.common.application.IQueryHandler;
-import com.karmalib.karmalibbackend.user.application.queries.results.ConfidentialInfoModel;
+import com.karmalib.karmalibbackend.user.application.queries.models.ConfidentialInfoModel;
 import org.springframework.stereotype.Service;
 
 @Service

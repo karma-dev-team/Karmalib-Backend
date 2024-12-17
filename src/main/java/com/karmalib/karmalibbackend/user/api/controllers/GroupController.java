@@ -5,7 +5,7 @@ import com.karmalib.karmalibbackend.common.presentation.CustomResponseEntity;
 import com.karmalib.karmalibbackend.user.application.commands.*;
 import com.karmalib.karmalibbackend.user.application.queries.GetGroupQuery;
 import com.karmalib.karmalibbackend.user.application.queries.GetGroupsListQuery;
-import com.karmalib.karmalibbackend.user.application.queries.results.GroupModel;
+import com.karmalib.karmalibbackend.user.application.queries.models.GroupModel;
 import com.karmalib.karmalibbackend.user.application.services.GroupCommandService;
 import com.karmalib.karmalibbackend.user.application.services.GroupQueryService;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 @RestController
 @RequestMapping("/api/groups")

@@ -4,7 +4,7 @@ import com.karmalib.karmalibbackend.user.application.queries.GetGroup;
 import com.karmalib.karmalibbackend.user.application.queries.GetGroupQuery;
 import com.karmalib.karmalibbackend.user.application.queries.GetGroupsList;
 import com.karmalib.karmalibbackend.user.application.queries.GetGroupsListQuery;
-import com.karmalib.karmalibbackend.user.application.queries.results.GroupModel;
+import com.karmalib.karmalibbackend.user.application.queries.models.GroupModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

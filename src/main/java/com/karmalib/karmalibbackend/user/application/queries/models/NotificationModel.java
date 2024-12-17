@@ -1,4 +1,4 @@
-package com.karmalib.karmalibbackend.user.application.queries.results;
+package com.karmalib.karmalibbackend.user.application.queries.models;
 
 
 import com.karmalib.karmalibbackend.common.application.BaseModel;

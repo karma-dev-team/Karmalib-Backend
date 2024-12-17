@@ -1,6 +1,7 @@
 package com.karmalib.karmalibbackend.library.domain.entities;
 
 import com.karmalib.karmalibbackend.common.domain.BaseEntity;
+import com.karmalib.karmalibbackend.user.domain.entities.AuthorEntity;
 import com.karmalib.karmalibbackend.user.domain.entities.UserEntity;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -20,5 +21,5 @@ public class ChapterTranslationEntity extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "author_id")
-    private UserEntity author;
+    private AuthorEntity author;
 }

@@ -1,13 +1,11 @@
 package com.karmalib.karmalibbackend.user.application.queries;
 
 import com.karmalib.karmalibbackend.common.application.IQueryHandler;
-import com.karmalib.karmalibbackend.user.application.queries.results.GroupModel;
+import com.karmalib.karmalibbackend.user.application.queries.models.GroupModel;
 import com.karmalib.karmalibbackend.user.domain.entities.GroupEntity;
 import com.karmalib.karmalibbackend.user.infrastructure.repositories.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class GetGroup implements IQueryHandler<GetGroupQuery, GroupModel> {

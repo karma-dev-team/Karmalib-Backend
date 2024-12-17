@@ -10,4 +10,5 @@ public abstract class BaseModel {
     private UUID id;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
 }

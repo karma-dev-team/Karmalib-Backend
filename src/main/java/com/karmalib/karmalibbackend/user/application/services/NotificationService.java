@@ -9,8 +9,8 @@ import com.karmalib.karmalibbackend.user.application.queries.GetNotificationSett
 import com.karmalib.karmalibbackend.user.application.queries.GetNotificationSettingsQuery;
 import com.karmalib.karmalibbackend.user.application.queries.GetUserNotifications;
 import com.karmalib.karmalibbackend.user.application.queries.GetUserNotificationsQuery;
-import com.karmalib.karmalibbackend.user.application.queries.results.NotificationModel;
-import com.karmalib.karmalibbackend.user.application.queries.results.NotificationSettingsModel;
+import com.karmalib.karmalibbackend.user.application.queries.models.NotificationModel;
+import com.karmalib.karmalibbackend.user.application.queries.models.NotificationSettingsModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

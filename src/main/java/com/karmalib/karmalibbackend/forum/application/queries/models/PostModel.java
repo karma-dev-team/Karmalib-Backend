@@ -3,12 +3,7 @@ package com.karmalib.karmalibbackend.forum.application.queries.models;
 import com.karmalib.karmalibbackend.file.application.queries.models.FileModel;
 import com.karmalib.karmalibbackend.forum.domain.entities.PostEntity;
 import com.karmalib.karmalibbackend.forum.domain.enums.PostStatus;
-import lombok.Data;
-import com.karmalib.karmalibbackend.common.application.BaseModel;
-import com.karmalib.karmalibbackend.forum.domain.entities.CommentEntity;
-import com.karmalib.karmalibbackend.user.application.queries.results.UserModel;
-import lombok.Getter;
-import lombok.Setter;
+import com.karmalib.karmalibbackend.user.application.queries.models.UserModel;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;

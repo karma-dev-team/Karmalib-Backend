@@ -57,4 +57,16 @@ public class BaseEntity {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
 }
