@@ -41,6 +41,12 @@ public class CommandResult {
                 message, id.toString(), null, HttpStatus.NOT_FOUND);
     }
 
+    public static CommandResult notFound(String message, String id) {
+        return new CommandResult(
+                message, id, null, HttpStatus.NOT_FOUND);
+    }
+
+
     // Ошибка: не найдено (список объектов)
     public static CommandResult notFound(String message, List<UUID> ids) {
         return new CommandResult(

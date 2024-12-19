@@ -2,7 +2,6 @@ package com.karmalib.karmalibbackend.file.application.queries;
 
 import com.karmalib.karmalibbackend.common.application.IQueryHandler;
 import com.karmalib.karmalibbackend.file.application.queries.models.FileModel;
-import com.karmalib.karmalibbackend.file.application.queries.models.GetFileQuery;
 import com.karmalib.karmalibbackend.file.infrastructure.repositories.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

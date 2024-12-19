@@ -17,7 +17,7 @@ public class CreateGenre implements ICommandHandler<CreateGenreCommand> {
         var genre = genreRepository.findByName(command.getGenreName()).orElse(null);
 
         if (genre != null) {
-            return CommandResult.failure("Genre with that name is already exists");
+            return CommandResult.notFound("Genre with that name is already exists", command.getGenreName());
         }
 
         var newGenre = GenreEntity.builder()

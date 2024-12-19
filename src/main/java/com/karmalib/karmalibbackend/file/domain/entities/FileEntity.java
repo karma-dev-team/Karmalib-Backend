@@ -17,9 +17,12 @@ import lombok.NoArgsConstructor;
 public class FileEntity extends BaseEntity  {
     @Column(nullable = false)
     private String name;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String path;
     @Builder.Default
     private int size = 0;
+    @Column(nullable = false)
     private String mimeType;
+    private int width;
+    private int height;
 }

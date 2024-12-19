@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.nio.file.*;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -32,6 +33,12 @@ public class LocalFileService implements IFileService {
             content.transferTo(outputStream); // Скопировать содержимое файла
         }
     }
+
+    @Override
+    public void deleteFiles(String bucketName, List<String> fileNames) throws Exception {
+        // TODO
+    }
+
 
     @Override
     public Optional<InputStream> downloadFile(String bucketName, String fileName) throws Exception {

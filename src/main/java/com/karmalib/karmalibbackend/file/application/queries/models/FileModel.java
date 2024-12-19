@@ -15,6 +15,8 @@ public class FileModel extends BaseModel {
     private String name;      // Имя файла
     private int size;         // Размер файла
     private String mimeType;  // MIME-тип файла
+    private int width;
+    private int height;
 
     public static FileModel fromEntity(FileEntity fileEntity) {
         return FileModel.builder()
@@ -24,6 +26,8 @@ public class FileModel extends BaseModel {
                 .name(fileEntity.getName())
                 .size(fileEntity.getSize())
                 .mimeType(fileEntity.getMimeType())
+                .width(fileEntity.getWidth())
+                .height(fileEntity.getHeight())
                 .build();
     }
 }

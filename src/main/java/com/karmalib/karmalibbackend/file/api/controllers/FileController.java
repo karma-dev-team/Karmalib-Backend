@@ -6,7 +6,7 @@ import com.karmalib.karmalibbackend.file.application.commands.DeleteFilesCommand
 import com.karmalib.karmalibbackend.file.application.commands.InputFileCommand;
 import com.karmalib.karmalibbackend.file.application.queries.*;
 import com.karmalib.karmalibbackend.file.application.queries.models.FileModel;
-import com.karmalib.karmalibbackend.file.application.queries.models.GetFileQuery;
+import com.karmalib.karmalibbackend.file.application.queries.GetFileQuery;
 import com.karmalib.karmalibbackend.file.application.services.FileService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

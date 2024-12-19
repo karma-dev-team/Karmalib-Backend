@@ -23,14 +23,11 @@ import java.util.List;
 public class ChapterEntity extends BaseEntity {
     private int number;
     private String name;
+    private String chapter;
 
     @ManyToOne
     @JoinColumn(name = "title_id")
     private TitleEntity title;
-
-    private LocalDateTime publicationDate;
-    private boolean paid;
-    private BigDecimal amountToPay;
 
     @OneToMany(mappedBy = "chapter")
     private List<ChapterTranslationEntity> translations;
@@ -38,4 +35,5 @@ public class ChapterEntity extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "chapter_id")
     private List<CommentEntity> comments = new ArrayList<>();
+    private int index; 
 }

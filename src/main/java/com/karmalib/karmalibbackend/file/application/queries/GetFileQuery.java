@@ -1,4 +1,4 @@
-package com.karmalib.karmalibbackend.file.application.queries.models;
+package com.karmalib.karmalibbackend.file.application.queries;
 
 import com.karmalib.karmalibbackend.common.application.BaseQuery;
 import lombok.Data;

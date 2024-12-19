@@ -24,5 +24,6 @@ public class AuthorEntity extends BaseEntity {
     private UserEntity user;
 
     @Builder.Default
+    @Column(nullable = false)
     private Boolean isAllowedToPost = true;
 }

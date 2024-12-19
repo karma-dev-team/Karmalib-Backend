@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -24,6 +25,12 @@ public class MinIOFileService implements IFileService {
                 .credentials(accessKey, secretKey)
                 .build();
     }
+
+
+    public void deleteFiles(String bucketName, List<String> fileNames) throws Exception {
+        // TODO
+    }
+
 
     @Override
     public void uploadFile(String bucketName, String fileName, InputStream content, String contentType) throws Exception {

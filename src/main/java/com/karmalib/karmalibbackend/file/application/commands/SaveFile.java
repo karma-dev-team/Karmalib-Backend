@@ -4,6 +4,7 @@ import com.karmalib.karmalibbackend.common.application.CommandResult;
 import com.karmalib.karmalibbackend.common.application.ICommandHandler;
 import com.karmalib.karmalibbackend.file.application.exceptions.ApplicationFileNotFoundException;
 import com.karmalib.karmalibbackend.file.domain.entities.FileEntity;
+import com.karmalib.karmalibbackend.file.domain.enums.FileType;
 import com.karmalib.karmalibbackend.file.infrastructure.files.IFileService;
 import com.karmalib.karmalibbackend.file.infrastructure.repositories.FileRepository;
 import jakarta.persistence.Tuple;
@@ -12,8 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class SaveFile implements ICommandHandler<InputFileCommand> {
@@ -55,6 +59,25 @@ public class SaveFile implements ICommandHandler<InputFileCommand> {
 
             byte[] stream = readStream(command);
 
+            int width = 0;
+            int height = 0;
+
+            if (command.getType() == FileType.Image) {
+                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(stream);
+
+                // Читаем изображение из потока
+                try {
+                    BufferedImage image = ImageIO.read(byteArrayInputStream);
+                    if (image != null) {
+                        // Получаем ширину и высоту изображения
+                        width = image.getWidth();
+                        height = image.getHeight();
+                    }
+                } catch (IOException e) {
+                    throw new IllegalArgumentException("Not correct image file format");
+                }
+            }
+
             try {
                 fileService.uploadFile(bucketName, fileName, command.getStream(), command.getType().toString());
             } catch (Exception e) {
@@ -64,6 +87,8 @@ public class SaveFile implements ICommandHandler<InputFileCommand> {
             FileEntity file = FileEntity.builder()
                     .size(stream.length)
                     .mimeType(command.getType().toString())
+                    .width(width)
+                    .height(height)
                     .build();
 
             file.setName(buildName(file.id, command.getName()));

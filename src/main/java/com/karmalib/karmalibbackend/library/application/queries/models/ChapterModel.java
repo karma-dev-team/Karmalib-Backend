@@ -28,9 +28,6 @@ public class ChapterModel extends BaseModel {
                 .number(entity.getNumber())
                 .name(entity.getName())
                 .title(TitleModel.fromEntity(entity.getTitle()))
-                .publicationDate(entity.getPublicationDate())
-                .paid(entity.isPaid())
-                .amountToPay(entity.getAmountToPay())
                 .translations(entity.getTranslations() != null
                         ? entity.getTranslations().stream()
                         .map(ChapterTranslationModel::fromEntity)

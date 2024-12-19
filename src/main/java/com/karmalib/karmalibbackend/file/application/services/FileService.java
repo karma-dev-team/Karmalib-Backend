@@ -9,7 +9,7 @@ import com.karmalib.karmalibbackend.file.application.queries.GetFile;
 import com.karmalib.karmalibbackend.file.application.queries.GetFilesList;
 import com.karmalib.karmalibbackend.file.application.queries.GetFilesListQuery;
 import com.karmalib.karmalibbackend.file.application.queries.models.FileModel;
-import com.karmalib.karmalibbackend.file.application.queries.models.GetFileQuery;
+import com.karmalib.karmalibbackend.file.application.queries.GetFileQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
