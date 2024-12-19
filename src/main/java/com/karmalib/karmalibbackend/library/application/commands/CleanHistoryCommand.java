@@ -9,5 +9,4 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 public class CleanHistoryCommand extends BaseCommand {
-    private UUID userId;
 }

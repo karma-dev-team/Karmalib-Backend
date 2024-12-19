@@ -1,6 +1,7 @@
 package com.karmalib.karmalibbackend.common.presentation;
 
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 
 import java.util.UUID;
 
@@ -8,17 +9,19 @@ import java.util.UUID;
 public class CustomResponseEntity {
     private boolean success;
     private UUID id;
-    private String description;
+    private HttpStatus status;
+    private String message;
 
     // Конструктор
-    public CustomResponseEntity(boolean success, UUID id, String description) {
+    public CustomResponseEntity(boolean success, UUID id, HttpStatus status, String message) {
         this.success = success;
         this.id = id;
-        this.description = description;
+        this.status = status;
+        this.message = message;
     }
 
     // Статический фабричный метод для удобства
-    public static CustomResponseEntity of(boolean success, UUID id, String description) {
-        return new CustomResponseEntity(success, id, description);
+    public static CustomResponseEntity of(boolean success, UUID id, HttpStatus status, String message) {
+        return new CustomResponseEntity(success, id, status, message);
     }
 }

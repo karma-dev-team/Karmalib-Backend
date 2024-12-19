@@ -80,7 +80,7 @@ public class PostController {
     }
 
     private CustomResponseEntity toCustomResponse(CommandResult result) {
-        return CustomResponseEntity.of(result.getIsSuccess(), UUID.fromString(result.getId()), result.getMessage());
+        return CustomResponseEntity.of(result.getIsSuccess(), UUID.fromString(result.getId()), result.getStatus(), result.getMessage());
     }
 }
 

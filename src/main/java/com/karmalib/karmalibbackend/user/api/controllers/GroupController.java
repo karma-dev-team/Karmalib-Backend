@@ -2,6 +2,7 @@ package com.karmalib.karmalibbackend.user.api.controllers;
 
 import com.karmalib.karmalibbackend.common.application.CommandResult;
 import com.karmalib.karmalibbackend.common.presentation.CustomResponseEntity;
+import com.karmalib.karmalibbackend.common.presentation.RestService;
 import com.karmalib.karmalibbackend.user.application.commands.*;
 import com.karmalib.karmalibbackend.user.application.queries.GetGroupQuery;
 import com.karmalib.karmalibbackend.user.application.queries.GetGroupsListQuery;
@@ -26,21 +27,11 @@ public class GroupController {
         this.groupQueryService = groupQueryService;
     }
 
-    private ResponseEntity<CustomResponseEntity> buildResponse(CommandResult result) {
-        CustomResponseEntity response = CustomResponseEntity.of(
-                result.getIsSuccess(),
-                UUID.fromString(result.getId()),
-                result.getMessage()
-        );
-        return ResponseEntity.status(result.getIsSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST)
-                .body(response);
-    }
-
     // Создание группы
     @PostMapping
     public ResponseEntity<CustomResponseEntity> createGroup(@RequestBody CreateGroupCommand command) {
         CommandResult result = groupCommandService.createGroup(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 
     // Обновление группы
@@ -50,7 +41,7 @@ public class GroupController {
             @RequestBody UpdateGroupCommand command) {
         command.setGroupId(groupId);
         CommandResult result = groupCommandService.updateGroup(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 
     // Удаление группы
@@ -58,7 +49,7 @@ public class GroupController {
     public ResponseEntity<CustomResponseEntity> deleteGroup(@PathVariable UUID groupId) {
         DeleteGroupCommand command = DeleteGroupCommand.builder().groupId(groupId).build();
         CommandResult result = groupCommandService.deleteGroup(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 
     // Отмена удаления группы
@@ -66,7 +57,7 @@ public class GroupController {
     public ResponseEntity<CustomResponseEntity> cancelGroupDeletion(@PathVariable UUID groupId) {
         CancelGroupDeletionCommand command = CancelGroupDeletionCommand.builder().groupId(groupId).build();
         CommandResult result = groupCommandService.cancelGroupDeletion(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 
     // Передача прав владельца группы
@@ -76,7 +67,7 @@ public class GroupController {
             @RequestBody GiveOwnershipOfGroupCommand command) {
         command.setGroupId(groupId);
         CommandResult result = groupCommandService.giveOwnershipOfGroup(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 
     // Приглашение пользователя в группу
@@ -86,7 +77,7 @@ public class GroupController {
             @RequestBody InviteUserToGroupCommand command) {
         command.setGroupId(groupId);
         CommandResult result = groupCommandService.inviteUserToGroup(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 
     // Удаление пользователя из группы
@@ -96,7 +87,7 @@ public class GroupController {
             @RequestBody KickUserFromGroupCommand command) {
         command.setGroupId(groupId);
         CommandResult result = groupCommandService.kickUserFromGroup(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 
     // Ответ на приглашение
@@ -105,7 +96,7 @@ public class GroupController {
             @PathVariable UUID groupId,
             @RequestBody RespondToInvitationCommand command) {
         CommandResult result = groupCommandService.respondToInvitation(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 
     // Добавление интеграции
@@ -115,7 +106,7 @@ public class GroupController {
             @RequestBody AddIntegrationCommand command) {
         command.setGroupId(groupId);
         CommandResult result = groupCommandService.addIntegration(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 
     // ------- Запросы --------

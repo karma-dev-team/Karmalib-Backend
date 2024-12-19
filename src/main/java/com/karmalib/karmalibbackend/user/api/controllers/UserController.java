@@ -1,6 +1,8 @@
 package com.karmalib.karmalibbackend.user.api.controllers;
 
 import com.karmalib.karmalibbackend.common.application.CommandResult;
+import com.karmalib.karmalibbackend.common.presentation.CustomResponseEntity;
+import com.karmalib.karmalibbackend.common.presentation.RestService;
 import com.karmalib.karmalibbackend.user.application.commands.*;
 import com.karmalib.karmalibbackend.user.application.queries.*;
 import com.karmalib.karmalibbackend.user.application.queries.models.*;
@@ -24,62 +26,53 @@ public class UserController {
         this.userQueryService = userQueryService;
     }
 
-    private ResponseEntity<?> buildResponse(CommandResult result) {
-        return ResponseEntity.status(result.getIsSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST)
-                .body(Map.of(
-                        "success", result.getIsSuccess(),
-                        "id", result.getId(),
-                        "description", result.getMessage()
-                ));
-    }
-
     // -------- Командные методы --------
 
     @PostMapping
     public ResponseEntity<?> registerUser(@RequestBody CreateUserCommand command) {
         CommandResult result = userCommandService.register(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<?> deleteUser(@PathVariable UUID userId) {
         DeleteAccountCommand command = DeleteAccountCommand.builder().userId(userId).build();
         CommandResult result = userCommandService.delete(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 
     @PostMapping("/{userId}/suspend")
     public ResponseEntity<?> suspendUser(@PathVariable UUID userId) {
         SuspendUserCommand command = SuspendUserCommand.builder().userId(userId).build();
         CommandResult result = userCommandService.suspend(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 
     @PostMapping("/friends")
     public ResponseEntity<?> addFriend(@RequestBody AddFriendCommand command) {
         CommandResult result = userCommandService.addFriend(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 
     @DeleteMapping("/friends/{friendId}")
     public ResponseEntity<?> deleteFriend(@PathVariable UUID friendId) {
         DeleteFriendCommand command = DeleteFriendCommand.builder().friendId(friendId).build();
         CommandResult result = userCommandService.deleteFriend(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 
     @PutMapping("/{userId}/email")
     public ResponseEntity<?> updateEmail(@PathVariable UUID userId, @RequestBody UpdateEmailCommand command) {
         command.setUserId(userId);
         CommandResult result = userCommandService.updateEmail(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 
     @PutMapping("/{userId}")
     public ResponseEntity<?> updateUser(@PathVariable UUID userId, @RequestBody UpdateUserCommand command) {
         command.setUserId(userId);
         CommandResult result = userCommandService.updateUser(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 
     // -------- Методы запросов --------
@@ -115,6 +108,6 @@ public class UserController {
     @PostMapping("/notifications/read")
     public ResponseEntity<?> readUserNotifications(@RequestBody ReadNotificationsCommand command)  {
         CommandResult result = userCommandService.readNotifications(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 }

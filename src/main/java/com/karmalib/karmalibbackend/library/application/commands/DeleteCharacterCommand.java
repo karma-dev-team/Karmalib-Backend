@@ -2,12 +2,13 @@ package com.karmalib.karmalibbackend.library.application.commands;
 
 import com.karmalib.karmalibbackend.common.application.BaseCommand;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.UUID;
 
 @Data
-@AllArgsConstructor
+@Builder
 public class DeleteCharacterCommand extends BaseCommand {
     private UUID characterId;
 }

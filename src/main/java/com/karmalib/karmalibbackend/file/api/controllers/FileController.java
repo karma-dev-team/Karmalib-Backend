@@ -2,6 +2,7 @@ package com.karmalib.karmalibbackend.file.api.controllers;
 
 import com.karmalib.karmalibbackend.common.application.CommandResult;
 import com.karmalib.karmalibbackend.common.presentation.CustomResponseEntity;
+import com.karmalib.karmalibbackend.common.presentation.RestService;
 import com.karmalib.karmalibbackend.file.application.commands.DeleteFilesCommand;
 import com.karmalib.karmalibbackend.file.application.commands.InputFileCommand;
 import com.karmalib.karmalibbackend.file.application.queries.*;
@@ -25,30 +26,19 @@ public class FileController {
         this.fileService = fileService;
     }
 
-    private ResponseEntity<CustomResponseEntity> buildResponse(CommandResult result) {
-        CustomResponseEntity response = CustomResponseEntity.of(
-                result.getIsSuccess(),
-                UUID.fromString(result.getId()),
-                result.getMessage()
-        );
-        return ResponseEntity.status(result.getIsSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST)
-                .body(response);
-    }
-
-    // -------- Команды --------
 
     // Удаление файлов
     @DeleteMapping
     public ResponseEntity<CustomResponseEntity> deleteFiles(@RequestBody DeleteFilesCommand command) {
         CommandResult result = fileService.deleteFiles(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 
     // Сохранение файла
     @PostMapping
     public ResponseEntity<CustomResponseEntity> saveFile(@RequestBody InputFileCommand command) {
         CommandResult result = fileService.saveFile(command);
-        return buildResponse(result);
+        return RestService.buildResponse(result);
     }
 
     // -------- Запросы --------
