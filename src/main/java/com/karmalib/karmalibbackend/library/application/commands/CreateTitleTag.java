@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CreateTag implements ICommandHandler<CreateTagCommand> {
+public class CreateTitleTag implements ICommandHandler<CreateTitleTagCommand> {
     @Autowired
     private TitleRepository titleRepository;
 
@@ -17,7 +17,7 @@ public class CreateTag implements ICommandHandler<CreateTagCommand> {
     private AccessPolicy accessPolicy;
 
     @Override
-    public CommandResult handle(CreateTagCommand command) {
+    public CommandResult handle(CreateTitleTagCommand command) {
         if (!accessPolicy.isAdmin()) {
             return CommandResult.forbidden("Не админ");
         }

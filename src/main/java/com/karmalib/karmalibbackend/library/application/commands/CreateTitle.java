@@ -82,6 +82,7 @@ public class CreateTitle implements ICommandHandler<CreateTitleCommand> {
                 .pgRating(command.getPgRatings())
                 .hentai(command.getHentai() != null ? command.getHentai() : false)
                 .ronabe(command.getRonabe() != null ? command.getRonabe() : false)
+                .ownedBy(accessPolicy.getCurrentUser())
                 .build();
 
         titleRepository.save(title);

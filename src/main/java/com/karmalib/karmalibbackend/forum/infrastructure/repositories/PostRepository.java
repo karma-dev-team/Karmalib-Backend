@@ -11,15 +11,16 @@ import java.util.UUID;
 
 @Repository
 public interface PostRepository extends JpaRepository<PostEntity, UUID> {
-    // Фильтрация по тегам с сортировкой по популярности
-    @Query("SELECT p FROM PostEntity p JOIN p.tags t WHERE t.name IN :tags GROUP BY p ORDER BY COUNT(p.likes) DESC")
+
+    // Фильтрация по тегам с сортировкой по количеству лайков
+    @Query("SELECT p FROM PostEntity p JOIN p.tags t WHERE t.name IN :tags GROUP BY p.id ORDER BY p.likesCount DESC")
     List<PostEntity> findByTagsOrderByLikesCountDesc(@Param("tags") List<String> tags);
 
     // Фильтрация по тегам с сортировкой по дате создания
-    @Query("SELECT p FROM PostEntity p JOIN p.tags t WHERE t.name IN :tags GROUP BY p ORDER BY p.createdAt DESC")
+    @Query("SELECT p FROM PostEntity p JOIN p.tags t WHERE t.name IN :tags GROUP BY p.id ORDER BY p.createdAt DESC")
     List<PostEntity> findByTagsOrderByCreatedAtDesc(@Param("tags") List<String> tags);
 
-    // Все посты, сортировка по популярности
+    // Все посты, сортировка по количеству лайков
     List<PostEntity> findAllByOrderByLikesCountDesc();
 
     // Все посты, сортировка по дате создания

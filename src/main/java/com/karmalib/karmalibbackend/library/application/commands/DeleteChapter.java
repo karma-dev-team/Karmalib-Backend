@@ -17,13 +17,12 @@ public class DeleteChapter implements ICommandHandler<DeleteChapterCommand> {
 
     @Override
     public CommandResult handle(DeleteChapterCommand command) {
-
-
         var chapter = chapterRepository.findById(command.getChapterId()).orElse(null);
-        if (!accessPolicy.isAdmin() || !accessPolicy.isUserSelf(chapter.get)) {
+        if (!accessPolicy.isAdmin()) {
+            return CommandResult.forbidden("Не админ");
         }
         if (chapter == null) {
-            return CommandResult.failure("Chapter not found");
+            return CommandResult.notFound("Chapter not found", command.getChapterId());
         }
 
         chapterRepository.delete(chapter);

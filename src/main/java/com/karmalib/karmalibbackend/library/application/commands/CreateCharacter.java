@@ -6,6 +6,7 @@ import com.karmalib.karmalibbackend.common.infrastrcuture.AccessPolicy;
 import com.karmalib.karmalibbackend.file.application.commands.SaveFile;
 import com.karmalib.karmalibbackend.library.domain.entities.CharacterEntity;
 import com.karmalib.karmalibbackend.library.domain.enums.CharacterStatus;
+import com.karmalib.karmalibbackend.library.domain.enums.ModerationStatus;
 import com.karmalib.karmalibbackend.library.infrastructure.repositories.CharacterRepository;
 import com.karmalib.karmalibbackend.library.infrastructure.repositories.TitleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class CreateCharacter implements ICommandHandler<CreateCharacterCommand> 
                 .description(command.getDescription())
                 .alternativeName(command.getAlternativeName())
                 .author(accessPolicy.getCurrentUser())
-                .status(CharacterStatus.Waiting)
+                .status(ModerationStatus.Waiting)
                 .avatar(file)
                 .build();
 

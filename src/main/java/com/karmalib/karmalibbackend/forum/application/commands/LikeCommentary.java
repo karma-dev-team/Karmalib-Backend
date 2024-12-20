@@ -1,6 +1,5 @@
 package com.karmalib.karmalibbackend.forum.application.commands;
 
-import com.karmalib.karmalibbackend.admin.infrastructure.repositories.PostRepository;
 import com.karmalib.karmalibbackend.common.application.CommandResult;
 import com.karmalib.karmalibbackend.common.application.ICommandHandler;
 import com.karmalib.karmalibbackend.common.infrastrcuture.AccessPolicy;

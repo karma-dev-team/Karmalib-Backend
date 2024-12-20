@@ -19,6 +19,9 @@ public class ReviewEntity extends BaseEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
+    @ManyToOne
+    private TitleEntity title;
+
     private int rating;
     private String content;
 }

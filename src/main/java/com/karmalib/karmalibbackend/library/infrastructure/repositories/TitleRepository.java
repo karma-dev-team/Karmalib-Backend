@@ -16,13 +16,18 @@ import java.util.UUID;
 @Repository
 public interface TitleRepository extends JpaRepository<TitleEntity, UUID> {
     @Query("SELECT t FROM TitleEntity t WHERE "
-            + "(:keyword IS NULL OR t.name LIKE %:keyword%) AND "
+            + "(:keyword IS NULL OR LOWER(t.name) LIKE LOWER(CONCAT('%', :keyword, '%'))) AND "
+            + "(:tags IS NULL OR EXISTS (SELECT 1 FROM t.tags tag WHERE tag.name IN :tags)) AND "
+            + "(:excludeTags IS NULL OR NOT EXISTS (SELECT 1 FROM t.tags tag WHERE tag.name IN :excludeTags)) AND "
+            + "(:genres IS NULL OR EXISTS (SELECT 1 FROM t.genres genre WHERE genre.name IN :genres)) AND "
+            + "(:excludeGenres IS NULL OR NOT EXISTS (SELECT 1 FROM t.genres genre WHERE genre.name IN :excludeGenres)) AND "
             + "(:pgRatings IS NULL OR t.pgRating = :pgRatings) AND "
             + "(:titleStatus IS NULL OR t.status = :titleStatus) AND "
             + "(:translationStatus IS NULL OR t.translationStatus = :translationStatus) AND "
             + "(:startDate IS NULL OR t.createdAt >= :startDate) AND "
             + "(:endDate IS NULL OR t.createdAt <= :endDate) AND "
-            + "(t.reviews.size BETWEEN :minReviews AND :maxReviews)")
+            + "(SIZE(t.reviews) BETWEEN :minReviews AND :maxReviews)"
+    )
     List<TitleEntity> findByFilters(
             @Param("keyword") String keyword,
             @Param("tags") List<String> tags,
