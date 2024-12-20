@@ -6,6 +6,7 @@ import com.karmalib.karmalibbackend.forum.infrastructure.repositories.TagReposit
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,9 +19,12 @@ public class GetTags implements IQueryHandler<GetTagsQuery, List<String>> {
     @Override
     public List<String> handle(GetTagsQuery query) {
         var tags = tagRepository.findAll();
+        List<String> tagsList = new ArrayList<>();
 
-        return tags.stream()
-                .map(PostTagEntity::getName)
-                .toList();
+        for (var tag : tags) {
+            tagsList.add(tag.getName());
+        }
+
+        return tagsList;
     }
 }

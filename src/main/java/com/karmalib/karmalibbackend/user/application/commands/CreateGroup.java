@@ -1,5 +1,6 @@
 package com.karmalib.karmalibbackend.user.application.commands;
 
+import com.google.common.collect.Lists;
 import com.karmalib.karmalibbackend.common.application.CommandResult;
 import com.karmalib.karmalibbackend.common.application.ICommandHandler;
 import com.karmalib.karmalibbackend.user.domain.entities.GroupEntity;
@@ -31,7 +32,8 @@ public class CreateGroup implements ICommandHandler<CreateGroupCommand> {
         }
 
         // Fetch users by the provided list of IDs
-        List<UserEntity> users = userRepository.findAllById(command.getMembers());
+        Iterable<UserEntity> tempUsers = userRepository.findAllById(command.getMembers());
+        List<UserEntity> users = Lists.newArrayList(tempUsers);
         if (users.size() != command.getMembers().size()) {
             return CommandResult.failure("Some user IDs are invalid", command.getMembers().toString());
         }

@@ -3,13 +3,14 @@ package com.karmalib.karmalibbackend.user.infrastructure.repositories;
 import com.karmalib.karmalibbackend.user.domain.entities.NotificationEntity;
 import com.karmalib.karmalibbackend.user.domain.enums.NotificationType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface NotificationRepository  extends JpaRepository<NotificationEntity, UUID> {
+public interface NotificationRepository  extends CrudRepository<NotificationEntity, UUID> {
     List<NotificationEntity> findAllByRecipientId(UUID recipientId);
 
     // Найти уведомления для пользователя определённого типа
