@@ -28,11 +28,6 @@ public class UserController {
 
     // -------- Командные методы --------
 
-    @PostMapping
-    public ResponseEntity<?> registerUser(@RequestBody CreateUserCommand command) {
-        CommandResult result = userCommandService.register(command);
-        return RestService.buildResponse(result);
-    }
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<?> deleteUser(@PathVariable UUID userId) {
