@@ -79,6 +79,12 @@ public class UserController {
         return ResponseEntity.ok(friends);
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> getUser(@PathVariable UUID userId) {
+        GetUserQuery query = GetUserQuery.builder().userId(userId).build();
+        return ResponseEntity.ok(userQueryService.getUser(query));
+    }
+
     @GetMapping("/{userId}/confidential-info")
     public ResponseEntity<?> getConfidentialInfo(@PathVariable UUID userId) {
         GetConfidentialInfoQuery query = GetConfidentialInfoQuery.builder().userId(userId).build();
