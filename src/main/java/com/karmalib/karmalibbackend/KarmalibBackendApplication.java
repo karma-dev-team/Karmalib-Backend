@@ -9,10 +9,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication(exclude = {R2dbcAutoConfiguration.class})
 @EnableCaching
 @EnableAsync
+@EnableWebMvc
 public class KarmalibBackendApplication {
     public static void main(String[] args) {
         SpringApplication.run(KarmalibBackendApplication.class, args);
