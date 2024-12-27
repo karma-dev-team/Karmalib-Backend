@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface PostRepository extends CrudRepository<PostEntity, UUID> {
+public interface PostRepository extends JpaRepository<PostEntity, UUID> {
 
     // Фильтрация по тегам с сортировкой по количеству лайков
     @Query("SELECT p FROM PostEntity p JOIN p.tags t WHERE t.name IN :tags GROUP BY p.id ORDER BY p.likesCount DESC")

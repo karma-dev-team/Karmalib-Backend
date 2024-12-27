@@ -10,6 +10,7 @@ import com.karmalib.karmalibbackend.user.domain.enums.InvitationStatus;
 import com.karmalib.karmalibbackend.user.infrastructure.repositories.GroupInvitationRepository;
 import com.karmalib.karmalibbackend.user.infrastructure.repositories.GroupRepository;
 import com.karmalib.karmalibbackend.user.infrastructure.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,7 @@ public class RespondToInvitation implements ICommandHandler<RespondToInvitationC
     @Autowired
     private AccessPolicy accessPolicy;
 
+    @Transactional
     public CommandResult handle(RespondToInvitationCommand command) {
         UUID currentUserId = accessPolicy.getCurrentUser().id;
 

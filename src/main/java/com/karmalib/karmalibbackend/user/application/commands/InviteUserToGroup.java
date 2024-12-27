@@ -9,6 +9,7 @@ import com.karmalib.karmalibbackend.user.domain.entities.UserEntity;
 import com.karmalib.karmalibbackend.user.infrastructure.repositories.GroupInvitationRepository;
 import com.karmalib.karmalibbackend.user.infrastructure.repositories.GroupRepository;
 import com.karmalib.karmalibbackend.user.infrastructure.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ public class InviteUserToGroup implements ICommandHandler<InviteUserToGroupComma
     @Autowired
     private AccessPolicy accessPolicy;
 
+    @Transactional
     public CommandResult handle(InviteUserToGroupCommand command) {
         UUID currentUserId = accessPolicy.getCurrentUser().id;
         GroupEntity group = groupRepository.findById(command.getGroupId()).orElse(null);

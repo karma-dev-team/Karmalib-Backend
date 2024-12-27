@@ -7,6 +7,7 @@ import com.karmalib.karmalibbackend.common.infrastrcuture.mailing.EmailMessage;
 import com.karmalib.karmalibbackend.common.infrastrcuture.mailing.IMailingQueue;
 import com.karmalib.karmalibbackend.user.domain.entities.UserEntity;
 import com.karmalib.karmalibbackend.user.infrastructure.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -26,6 +27,7 @@ public class DeleteAccount implements ICommandHandler<DeleteAccountCommand> {
     @Autowired
     private CacheManager cacheManager;
 
+    @Transactional
     public CommandResult handle(DeleteAccountCommand command) {
         // Check access policy
         if (!accessPolicy.isUserSelf(command.getUserId()) && !accessPolicy.isSuperAdmin()) {

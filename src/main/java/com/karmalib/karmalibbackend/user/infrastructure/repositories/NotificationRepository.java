@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface NotificationRepository  extends CrudRepository<NotificationEntity, UUID> {
+public interface NotificationRepository  extends JpaRepository<NotificationEntity, UUID> {
     List<NotificationEntity> findAllByRecipientId(UUID recipientId);
 
     // Найти уведомления для пользователя определённого типа

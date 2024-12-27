@@ -5,6 +5,7 @@ import com.karmalib.karmalibbackend.common.application.ICommandHandler;
 import com.karmalib.karmalibbackend.common.infrastrcuture.AccessPolicy;
 import com.karmalib.karmalibbackend.user.domain.entities.GroupEntity;
 import com.karmalib.karmalibbackend.user.infrastructure.repositories.GroupRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -18,6 +19,7 @@ public class DeleteGroup implements ICommandHandler<DeleteGroupCommand> {
     @Autowired
     private AccessPolicy accessPolicy;
 
+    @Transactional
     public CommandResult handle(DeleteGroupCommand command) {
         GroupEntity group = groupRepository.findById(command.getGroupId()).orElse(null);
         if (group == null) {

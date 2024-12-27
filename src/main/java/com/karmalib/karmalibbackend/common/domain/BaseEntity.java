@@ -22,11 +22,11 @@ public class BaseEntity {
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
-    public LocalDateTime createdAt;
+    public LocalDateTime createdAt = LocalDateTime.now();
 
     @LastModifiedDate
     @Column(name = "updated_at", nullable = false)
-    public LocalDateTime updatedAt;
+    public LocalDateTime updatedAt = LocalDateTime.now();
 
     @Transient
     private List<BaseEvent> domainEvents = new ArrayList<>();

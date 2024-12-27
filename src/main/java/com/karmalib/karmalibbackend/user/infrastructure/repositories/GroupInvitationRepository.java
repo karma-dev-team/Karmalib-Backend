@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface GroupInvitationRepository extends CrudRepository<GroupInvitationEntity, UUID> {
+public interface GroupInvitationRepository extends JpaRepository<GroupInvitationEntity, UUID> {
 }

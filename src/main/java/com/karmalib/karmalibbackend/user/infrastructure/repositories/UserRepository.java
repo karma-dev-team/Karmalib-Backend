@@ -13,10 +13,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface UserRepository extends CrudRepository<UserEntity, UUID> {
-    @Cacheable(value = "users", key = "#email")
+public interface UserRepository extends JpaRepository<UserEntity, UUID> {
+    Optional<UserEntity> findByEmailOrUsername(String email, String username);
     Optional<UserEntity> findByEmail(String email);
-    @Cacheable(value = "users", key = "#username")
     Optional<UserEntity> findByUsername(String username);
 
     @Query("""

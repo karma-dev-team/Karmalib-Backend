@@ -7,6 +7,8 @@ import com.karmalib.karmalibbackend.user.application.services.PasswordHasherServ
 import com.karmalib.karmalibbackend.user.domain.entities.UserEntity;
 import com.karmalib.karmalibbackend.user.domain.events.UserCreated;
 import com.karmalib.karmalibbackend.user.infrastructure.repositories.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +21,11 @@ public class CreateUser implements ICommandHandler<CreateUserCommand> {
     @Autowired
     private IEventDispatcher eventDispatcher;
 
+    @Transactional
     public CommandResult handle(CreateUserCommand command) {
-        var oldUser = userRepository.findByEmail(command.getEmail());
+        var oldUser = userRepository.findByEmailOrUsername(command.getEmail(), command.getUsername());
         if (oldUser.isPresent()) {
-            return CommandResult.failure("This user is already present");
+            return CommandResult.conflict("This user is already present");
         }
         var hashedPassword = this.passwordHasherService.hashPassword(command.getPassword());
 
@@ -30,6 +33,7 @@ public class CreateUser implements ICommandHandler<CreateUserCommand> {
                 .email(command.getEmail())
                 .username(command.getUsername())
                 .hashedPassword(hashedPassword)
+                .publicUsername(command.getUsername())
                 .build();
 
         userRepository.save(newUser);
@@ -40,6 +44,6 @@ public class CreateUser implements ICommandHandler<CreateUserCommand> {
                 .build()
         );
 
-        return CommandResult.empty();
+        return CommandResult.success(newUser.id);
     }
 }

@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface GroupRepository extends CrudRepository<GroupEntity, UUID> {
+public interface GroupRepository extends JpaRepository<GroupEntity, UUID> {
     boolean existsByName(String name);
     List<GroupEntity> findByIsPendingDeletionTrue();
     @Query("SELECT g FROM GroupEntity g " +

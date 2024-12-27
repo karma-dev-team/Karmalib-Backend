@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface CommentRepository extends CrudRepository<CommentEntity, UUID> {
+public interface CommentRepository extends JpaRepository<CommentEntity, UUID> {
 
     List<CommentEntity> findByAuthorId(UUID authorId);
 }

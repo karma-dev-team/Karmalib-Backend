@@ -14,7 +14,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @SpringBootApplication(exclude = {R2dbcAutoConfiguration.class})
 @EnableCaching
 @EnableAsync
-@EnableWebMvc
 public class KarmalibBackendApplication {
     public static void main(String[] args) {
         SpringApplication.run(KarmalibBackendApplication.class, args);

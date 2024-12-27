@@ -10,7 +10,7 @@ public class RestService {
     public static ResponseEntity<CustomResponseEntity> buildResponse(CommandResult result) {
         CustomResponseEntity response = CustomResponseEntity.of(
                 result.getIsSuccess(),
-                UUID.fromString(result.getId()),
+                result.getId() != null ? result.getId() : null,
                 result.getStatus(),
                 result.getMessage()
         );

@@ -4,6 +4,7 @@ import com.karmalib.karmalibbackend.common.application.CommandResult;
 import com.karmalib.karmalibbackend.common.application.ICommandHandler;
 import com.karmalib.karmalibbackend.user.domain.entities.NotificationEntity;
 import com.karmalib.karmalibbackend.user.infrastructure.repositories.NotificationRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ public class ReadNotifications implements ICommandHandler<ReadNotificationsComma
     @Autowired
     private NotificationRepository notificationRepository;
 
+    @Transactional
     @Override
     public CommandResult handle(ReadNotificationsCommand command) {
         // Получаем уведомления пользователя, фильтруя по типу, если задан

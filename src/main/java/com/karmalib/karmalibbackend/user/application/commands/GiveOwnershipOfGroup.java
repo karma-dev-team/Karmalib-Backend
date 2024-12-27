@@ -7,6 +7,7 @@ import com.karmalib.karmalibbackend.common.infrastrcuture.eventDispatcher.IEvent
 import com.karmalib.karmalibbackend.user.domain.entities.GroupEntity;
 import com.karmalib.karmalibbackend.user.infrastructure.repositories.GroupRepository;
 import com.karmalib.karmalibbackend.user.infrastructure.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ public class GiveOwnershipOfGroup  implements ICommandHandler<GiveOwnershipOfGro
     @Autowired
     private IEventDispatcher eventDispatcher;
 
+    @Transactional
     public CommandResult handle(GiveOwnershipOfGroupCommand command) {
         // Проверка наличия группы
         GroupEntity group = groupRepository.findById(command.getGroupId()).orElse(null);

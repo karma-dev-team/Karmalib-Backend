@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface FriendInvitationRepository extends CrudRepository<FriendInvitationEntity, UUID> {
+public interface FriendInvitationRepository extends JpaRepository<FriendInvitationEntity, UUID> {
 }

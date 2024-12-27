@@ -13,6 +13,7 @@ import com.karmalib.karmalibbackend.user.domain.enums.UserRole;
 import com.karmalib.karmalibbackend.user.domain.events.FriendAdded;
 import com.karmalib.karmalibbackend.user.domain.events.FriendRemoved;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 import net.minidev.json.annotate.JsonIgnore;
 
@@ -32,6 +33,7 @@ public class UserEntity extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String username;
     private String publicUsername;
+    @Email
     private String email;
     private String hashedPassword;
     @Builder.Default
@@ -59,7 +61,7 @@ public class UserEntity extends BaseEntity {
     @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING) // Store enum as a string in the database
-    private Set<UserRole> roles;
+    private Set<UserRole> roles = new HashSet<>();
 
     @OneToOne
     @JoinColumn(name = "avatar_id")
