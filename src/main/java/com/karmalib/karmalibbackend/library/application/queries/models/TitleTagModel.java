@@ -11,6 +11,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 public class TitleTagModel extends BaseModel {
     private String name;
+    private String slug;
 
     public static TitleTagModel fromEntity(TitleTagEntity titleTagEntity) {
         if (titleTagEntity == null) {
@@ -22,6 +23,7 @@ public class TitleTagModel extends BaseModel {
                 .createdAt(titleTagEntity.createdAt)
                 .updatedAt(titleTagEntity.updatedAt)
                 .name(titleTagEntity.getName())
+                .slug(titleTagEntity.getSlug())
                 .build();
     }
 
