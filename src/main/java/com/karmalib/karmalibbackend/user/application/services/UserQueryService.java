@@ -1,5 +1,6 @@
 package com.karmalib.karmalibbackend.user.application.services;
 
+import com.karmalib.karmalibbackend.common.domain.AccessDenied;
 import com.karmalib.karmalibbackend.user.application.queries.*;
 import com.karmalib.karmalibbackend.user.application.queries.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ public class UserQueryService {
     private final GetFriends getFriends;
     private final GetConfidentialInfo getConfidentialInfo;
     private final GetUser getUser;
+    private final GetUsersList getUsersList;
     private final GetHistoryOfProfile getHistoryOfProfile;
     private final GetNotificationSettings getNotificationSettings;
     private final GetUserNotifications getUserNotifications;
@@ -25,8 +27,10 @@ public class UserQueryService {
         GetGroupsList getGroupsList,
         GetHistoryOfProfile getHistoryOfProfile,
         GetNotificationSettings getNotificationSettings,
-        GetUserNotifications getUserNotifications
+        GetUserNotifications getUserNotifications,
+        GetUsersList getUsersList
     ) {
+        this.getUsersList = getUsersList;
         this.getFriends = getFriends;
         this.getConfidentialInfo = getConfidentialInfo;
         this.getUser = getUser;
@@ -58,6 +62,10 @@ public class UserQueryService {
     // Получить настройки уведомлений
     public NotificationSettingsModel getNotificationSettings(GetNotificationSettingsQuery query) {
         return this.getNotificationSettings.handle(query);
+    }
+
+    public List<UserModel> getUsersList(GetUsersListQuery query) throws AccessDenied {
+        return this.getUsersList.handle(query);
     }
 
     // Получить уведомления пользователя

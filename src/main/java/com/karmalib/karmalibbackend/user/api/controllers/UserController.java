@@ -1,6 +1,7 @@
 package com.karmalib.karmalibbackend.user.api.controllers;
 
 import com.karmalib.karmalibbackend.common.application.CommandResult;
+import com.karmalib.karmalibbackend.common.domain.AccessDenied;
 import com.karmalib.karmalibbackend.common.presentation.CustomResponseEntity;
 import com.karmalib.karmalibbackend.common.presentation.RestService;
 import com.karmalib.karmalibbackend.user.application.commands.*;
@@ -27,6 +28,7 @@ public class UserController {
     }
 
     // -------- Командные методы --------
+
 
 
     @DeleteMapping("/{userId}")
@@ -70,45 +72,53 @@ public class UserController {
         return RestService.buildResponse(result);
     }
 
-    // -------- Методы запросов --------
-
-    @GetMapping("/{userId}/friends")
-    public ResponseEntity<?> getUserFriends(@PathVariable UUID userId) {
-        GetFriendsQuery query = GetFriendsQuery.builder().userId(userId).build();
-        List<UserModel> friends = userQueryService.getUserFriends(query);
-        return ResponseEntity.ok(friends);
-    }
-
-    @GetMapping("/{userId}")
-    public ResponseEntity<?> getUser(@PathVariable UUID userId) {
-        GetUserQuery query = GetUserQuery.builder().userId(userId).build();
-        return ResponseEntity.ok(userQueryService.getUser(query));
-    }
-
-    @GetMapping("/{userId}/confidential-info")
-    public ResponseEntity<?> getConfidentialInfo(@PathVariable UUID userId) {
-        GetConfidentialInfoQuery query = GetConfidentialInfoQuery.builder().userId(userId).build();
-        ConfidentialInfoModel info = userQueryService.getConfidentialInfo(query);
-        return ResponseEntity.ok(info);
-    }
-
-    @GetMapping("/{userId}/notifications/settings")
-    public ResponseEntity<?> getNotificationSettings(@PathVariable UUID userId) {
-        GetNotificationSettingsQuery query = GetNotificationSettingsQuery.builder().userId(userId).build();
-        NotificationSettingsModel settings = userQueryService.getNotificationSettings(query);
-        return ResponseEntity.ok(settings);
-    }
-
-    @GetMapping("/{userId}/notifications")
-    public ResponseEntity<?> getUserNotifications(@PathVariable UUID userId) {
-        GetUserNotificationsQuery query = GetUserNotificationsQuery.builder().userId(userId).build();
-        List<NotificationModel> notifications = userQueryService.getUserNotifications(query);
-        return ResponseEntity.ok(notifications);
-    }
 
     @PostMapping("/notifications/read")
     public ResponseEntity<?> readUserNotifications(@RequestBody ReadNotificationsCommand command)  {
         CommandResult result = userCommandService.readNotifications(command);
         return RestService.buildResponse(result);
     }
+
+    // -------- Методы запросов --------
+
+    @GetMapping("/{userId}/friends")
+    public ResponseEntity<List<UserModel>> getUserFriends(@PathVariable UUID userId) {
+        GetFriendsQuery query = GetFriendsQuery.builder().userId(userId).build();
+        List<UserModel> friends = userQueryService.getUserFriends(query);
+        return ResponseEntity.ok(friends);
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserModel> getUser(@PathVariable UUID userId) {
+        GetUserQuery query = GetUserQuery.builder().userId(userId).build();
+        return ResponseEntity.ok(userQueryService.getUser(query));
+    }
+
+    @GetMapping("/{userId}/confidential-info")
+    public ResponseEntity<ConfidentialInfoModel> getConfidentialInfo(@PathVariable UUID userId) {
+        GetConfidentialInfoQuery query = GetConfidentialInfoQuery.builder().userId(userId).build();
+        ConfidentialInfoModel info = userQueryService.getConfidentialInfo(query);
+        return ResponseEntity.ok(info);
+    }
+
+    @GetMapping("/{userId}/notifications/settings")
+    public ResponseEntity<NotificationSettingsModel> getNotificationSettings(@PathVariable UUID userId) {
+        GetNotificationSettingsQuery query = GetNotificationSettingsQuery.builder().userId(userId).build();
+        NotificationSettingsModel settings = userQueryService.getNotificationSettings(query);
+        return ResponseEntity.ok(settings);
+    }
+
+    @GetMapping("/{userId}/notifications")
+    public ResponseEntity<List<NotificationModel>> getUserNotifications(@PathVariable UUID userId) {
+        GetUserNotificationsQuery query = GetUserNotificationsQuery.builder().userId(userId).build();
+        List<NotificationModel> notifications = userQueryService.getUserNotifications(query);
+        return ResponseEntity.ok(notifications);
+    }
+
+    @PostMapping
+    public ResponseEntity<List<UserModel>> getUsersList(@RequestBody GetUsersListQuery query) throws AccessDenied {
+        List<UserModel> users = userQueryService.getUsersList(query);
+        return ResponseEntity.ok(users);
+    }
+
 }
