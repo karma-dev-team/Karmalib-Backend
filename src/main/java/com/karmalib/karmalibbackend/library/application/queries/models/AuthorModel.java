@@ -4,11 +4,13 @@ import com.karmalib.karmalibbackend.common.application.BaseModel;
 import com.karmalib.karmalibbackend.user.application.queries.models.GroupModel;
 import com.karmalib.karmalibbackend.user.application.queries.models.UserModel;
 import com.karmalib.karmalibbackend.user.domain.entities.AuthorEntity;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 import java.util.UUID;
 
 @SuperBuilder
+@Data
 public class AuthorModel extends BaseModel {
     private GroupModel group;   // Связанная группа
     private UserModel user;     // Связанный пользователь

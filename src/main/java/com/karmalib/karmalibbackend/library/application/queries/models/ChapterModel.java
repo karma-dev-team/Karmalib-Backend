@@ -3,6 +3,7 @@ package com.karmalib.karmalibbackend.library.application.queries.models;
 import com.karmalib.karmalibbackend.common.application.BaseModel;
 import com.karmalib.karmalibbackend.forum.application.queries.models.CommentModel;
 import com.karmalib.karmalibbackend.library.domain.entities.ChapterEntity;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @SuperBuilder
+@Data
 public class ChapterModel extends BaseModel {
     private int number;
     private String name;

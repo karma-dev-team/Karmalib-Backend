@@ -33,7 +33,6 @@ public class UserEntity extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String username;
     private String publicUsername;
-    @Email
     private String email;
     private String hashedPassword;
     @Builder.Default

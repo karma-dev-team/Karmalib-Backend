@@ -9,6 +9,7 @@ import com.karmalib.karmalibbackend.library.domain.enums.ModerationStatus;
 import com.karmalib.karmalibbackend.library.domain.enums.PgRatings;
 import com.karmalib.karmalibbackend.library.domain.enums.TitleStatus;
 import com.karmalib.karmalibbackend.library.domain.enums.TranslationStatus;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @SuperBuilder
+@Data
 public class TitleModel extends BaseModel {
     private String name;
     private String description;

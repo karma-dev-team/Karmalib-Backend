@@ -11,6 +11,7 @@ import lombok.experimental.SuperBuilder;
 import java.util.UUID;
 
 @SuperBuilder
+@Data
 public class FileModel extends BaseModel {
     private String name;      // Имя файла
     private int size;         // Размер файла

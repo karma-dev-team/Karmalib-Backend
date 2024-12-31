@@ -18,8 +18,9 @@ public class GetUsersList implements IQueryHandler<GetUsersListQuery, List<UserM
     @Autowired
     private AccessPolicy accessPolicy;
 
+
     @Autowired
-    private IPaginationService paginationService;
+    private UserRepository userRepository;
 
     public List<UserModel> handle(GetUsersListQuery query) throws AccessDenied {
         // TODO use query parameters
@@ -27,7 +28,7 @@ public class GetUsersList implements IQueryHandler<GetUsersListQuery, List<UserM
             throw new AccessDenied("Need to be staff");
         }
 
-        var users = paginationService.getPaginatedData(UserEntity.class, query.getPageNumber(), query.getPageSize());
+        var users = userRepository.findAll();
         return users.stream().map(UserModel::fromEntity).collect(Collectors.toList());
     }
 }

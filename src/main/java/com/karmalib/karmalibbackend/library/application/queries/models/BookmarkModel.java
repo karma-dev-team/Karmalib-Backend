@@ -2,6 +2,7 @@ package com.karmalib.karmalibbackend.library.application.queries.models;
 
 import com.karmalib.karmalibbackend.common.application.BaseModel;
 import com.karmalib.karmalibbackend.library.domain.entities.BookmarkEntity;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 import java.util.Set;
@@ -9,6 +10,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @SuperBuilder
+@Data
 public class BookmarkModel extends BaseModel {
     private UUID userId;
     private TitleModel title;

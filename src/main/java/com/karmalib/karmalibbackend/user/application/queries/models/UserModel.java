@@ -4,12 +4,14 @@ import com.karmalib.karmalibbackend.common.application.BaseModel;
 import com.karmalib.karmalibbackend.file.application.queries.models.FileModel;
 import com.karmalib.karmalibbackend.user.domain.entities.UserEntity;
 import com.karmalib.karmalibbackend.user.domain.enums.UserRole;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @SuperBuilder
+@Data
 public class UserModel extends BaseModel {
     private String username;
     private String publicUsername;

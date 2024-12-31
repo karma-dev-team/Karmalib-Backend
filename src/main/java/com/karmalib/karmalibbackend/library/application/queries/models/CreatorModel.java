@@ -4,11 +4,13 @@ import com.karmalib.karmalibbackend.common.application.BaseModel;
 import com.karmalib.karmalibbackend.library.domain.entities.CreatorEntity;
 import com.karmalib.karmalibbackend.library.domain.enums.CountryType;
 import com.karmalib.karmalibbackend.library.domain.enums.CreatorType;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @SuperBuilder
+@Data
 public class CreatorModel extends BaseModel {
     private String name;
     private CreatorType type;

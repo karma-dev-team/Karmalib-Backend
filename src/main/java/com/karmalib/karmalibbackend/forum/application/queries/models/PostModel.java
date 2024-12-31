@@ -4,6 +4,7 @@ import com.karmalib.karmalibbackend.file.application.queries.models.FileModel;
 import com.karmalib.karmalibbackend.forum.domain.entities.PostEntity;
 import com.karmalib.karmalibbackend.forum.domain.enums.PostStatus;
 import com.karmalib.karmalibbackend.user.application.queries.models.UserModel;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @SuperBuilder
+@Data
 public class PostModel {
     private UUID id;
     private UserModel author;

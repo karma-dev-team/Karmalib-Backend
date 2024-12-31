@@ -16,7 +16,7 @@ public class PaginationServiceImpl implements IPaginationService {
     public <T> List<T> getPaginatedData(Class<T> entityType, int page, int size) {
         int offset = (page - 1) * size; // Рассчитываем смещение
         return entityManager.createQuery("SELECT e FROM " + entityType.getSimpleName() + " e", entityType)
-                .setFirstResult(offset) // Смещение
+                .setFirstResult(Math.abs(offset)) // Смещение
                 .setMaxResults(size)    // Лимит записей
                 .getResultList();
     }

@@ -3,11 +3,13 @@ package com.karmalib.karmalibbackend.library.application.queries.models;
 import com.karmalib.karmalibbackend.common.application.BaseModel;
 import com.karmalib.karmalibbackend.library.domain.entities.RecommendationEntity;
 import com.karmalib.karmalibbackend.library.domain.entities.TitleEntity;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 import java.util.UUID;
 
 @SuperBuilder
+@Data
 public class RecommendationModel extends BaseModel {
     private UUID authorId;
     private TitleModel title;

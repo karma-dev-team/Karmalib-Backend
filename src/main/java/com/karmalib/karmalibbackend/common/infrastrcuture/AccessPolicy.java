@@ -19,8 +19,16 @@ public class AccessPolicy {
     @Value("${system.token}")
     private String systemToken; // Читаем системный токен из конфигурации
 
+    @Value("${spring.profiles.active:}")
+    private String activeProfile;
+
     public AccessPolicy(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    // Check if the current profile is development
+    private boolean isDevelopmentProfile() {
+        return "development".equalsIgnoreCase(activeProfile);
     }
 
     public UserEntity getUserFromDatabase(String username) {
@@ -45,6 +53,7 @@ public class AccessPolicy {
 
     // Check if the current user is a SuperAdmin; if so, all methods should return true
     public boolean isSuperAdmin() {
+        if (isDevelopmentProfile()) return true;
         return getCurrentUser().getRoles().contains(UserRole.SuperAdmin);
     }
 
@@ -81,14 +90,17 @@ public class AccessPolicy {
 
     // Check if the current user is a Staff member
     public boolean isStaff() {
+        if (isDevelopmentProfile()) return true;
         return hasRole(UserRole.Staff);
     }
 
     public boolean isModerator() {
+        if (isDevelopmentProfile()) return true;
         return hasRole(UserRole.Moderator);
     }
 
     public boolean isAdmin() {
+        if (isDevelopmentProfile()) return true;
         return hasRole(UserRole.Admin);
     }
 

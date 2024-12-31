@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @SuperBuilder
+@Data
 public class HistoryRecordModel extends BaseModel {
 
     private UUID userId;

@@ -2,6 +2,7 @@ package com.karmalib.karmalibbackend.library.application.queries.models;
 
 import com.karmalib.karmalibbackend.common.application.BaseModel;
 import com.karmalib.karmalibbackend.library.domain.entities.ChapterTranslationEntity;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @SuperBuilder
+@Data
 public class ChapterTranslationModel extends BaseModel {
     private UUID chapterId;
     private LocalDateTime publicationDate;

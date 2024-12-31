@@ -2,9 +2,11 @@ package com.karmalib.karmalibbackend.library.application.queries.models;
 
 import com.karmalib.karmalibbackend.common.application.BaseModel;
 import com.karmalib.karmalibbackend.library.domain.entities.GenreEntity;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
+@Data
 public class GenreModel extends BaseModel {
     private String name;
     private boolean visible;

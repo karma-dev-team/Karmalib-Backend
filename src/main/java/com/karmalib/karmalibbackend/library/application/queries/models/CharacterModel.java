@@ -5,11 +5,13 @@ import com.karmalib.karmalibbackend.file.application.queries.models.FileModel;
 import com.karmalib.karmalibbackend.library.domain.entities.CharacterEntity;
 import com.karmalib.karmalibbackend.library.domain.entities.GenreEntity;
 import com.karmalib.karmalibbackend.library.domain.enums.ModerationStatus;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 import java.util.UUID;
 
 @SuperBuilder
+@Data
 public class CharacterModel extends BaseModel {
     private String name;
     private FileModel avatar;

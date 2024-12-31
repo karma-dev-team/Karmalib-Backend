@@ -2,6 +2,7 @@ package com.karmalib.karmalibbackend.user.application.queries.models;
 
 import com.karmalib.karmalibbackend.common.application.BaseModel;
 import com.karmalib.karmalibbackend.user.domain.entities.GroupEntity;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @SuperBuilder
+@Data
 public class GroupModel extends BaseModel {
     private UUID id;
     private String name;
